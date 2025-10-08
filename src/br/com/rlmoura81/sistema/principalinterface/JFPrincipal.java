@@ -4,6 +4,9 @@ import br.com.rlmoura81.sistema.geralinterface.JIFCadastroGeral;
 import br.com.rlmoura81.sistema.geralinterface.JIFGrupo;
 import br.com.rlmoura81.sistema.projetointerface.JIFProjeto;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,7 +22,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.gerenciainterface = new GerenciarInterface(jDPPrincipal);
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        this.setTitle("Sistema" + " - " + "Usuário: ");
+        this.setTitle("Sistema rlmoura81" + " - " + "Usuário: ");
+        nlsDateFormat();
     }
 
     @SuppressWarnings("unchecked")
@@ -166,6 +170,50 @@ public class JFPrincipal extends javax.swing.JFrame {
             }
         });
     }    
+    
+        /**
+     * <p><strong>EN:</strong> Validates and adjusts the Oracle session’s 
+     * NLS_DATE_FORMAT parameter.  
+     * If the current format is different from <code>DD/MM/RR</code>, 
+     * updates the session to use <code>dd/MM/yyyy</code>.</p>
+     *
+     * <p><strong>IT:</strong> Verifica e aggiorna il parametro 
+     * NLS_DATE_FORMAT della sessione Oracle.  
+     * Se il formato attuale è diverso da <code>DD/MM/RR</code>, 
+     * imposta la sessione su <code>dd/MM/yyyy</code>.</p>
+     *
+     * <p><strong>PT-BR:</strong> Valida e ajusta o parâmetro 
+     * NLS_DATE_FORMAT da sessão Oracle.  
+     * Se o formato atual for diferente de <code>DD/MM/RR</code>, 
+     * altera a sessão para <code>dd/MM/yyyy</code>.</p>
+     */
+    private void nlsDateFormat(){
+        String sql;
+        String nlsDateFormat = null;
+        try{
+            sql = "SELECT value" +
+                  "  FROM NLS_SESSION_PARAMETERS" +
+                  " WHERE PARAMETER = 'NLS_DATE_FORMAT'";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                nlsDateFormat = rs.getString("value");
+            }
+            if(!nlsDateFormat.equals("DD/MM/RR")){
+                try{
+                    sql = "ALTER SESSION SET NLS_DATE_FORMAT = 'dd/MM/yyyy'";
+                    ps.execute(sql);
+                }catch(SQLException ex){
+                    JOptionPane.showMessageDialog(null, "Erro ao alterar a nls_Date_Format:\n" +
+                            ex.getMessage());
+                }
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de nls_Date_Format:\n" +
+                    ex.getMessage());
+        }
+    }
     
     private void jMISairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMISairActionPerformed
         System.exit(0);

@@ -148,7 +148,9 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
         jTFHora.setText(null);
         jFTFValor.setValue(null);
         jFTFData.setText(null);
-        jCBGrupo.setSelectedIndex(0);
+        if(jCBGrupo.isVisible() == true){
+            jCBGrupo.setSelectedIndex(0);    
+        }        
     }
     
     private boolean validaCampos(){
@@ -206,6 +208,7 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
                 patrimonior.inserir(cadgeral);
             }
             if(modulo == 4){
+                cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 trabalhor.inserir(cadgeral);
             }   
             if(modulo == 5){
@@ -230,6 +233,7 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
                 patrimonior.alterar(cadgeral);
             }
             if(modulo == 4){
+                cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 trabalhor.alterar(cadgeral);
             }  
             if(modulo == 5){
@@ -556,8 +560,8 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCBGrupoActionPerformed
 
     private void jTFHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFHoraFocusLost
-        cadgeral.setNm_hora(Integer.valueOf(jTFHora.getText()));
-        if(!(cadgeral.getNm_hora() / cadgeral.getNm_hora() == 1)){
+        //cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
+        if(!(Integer.parseInt(jTFHora.getText()) / Integer.parseInt(jTFHora.getText()) == 1)){
             JOptionPane.showMessageDialog(null, "Somente numeros.");
             jTFHora.requestFocus();
         }
