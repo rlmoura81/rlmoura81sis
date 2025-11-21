@@ -12,9 +12,9 @@ public class ModuloUtil {
     
     ArrayList lista = new ArrayList();
     
-    public void tabelaModulo(JTable o, int projeto){
+    public void tabelaModulo(JTable o, int cd_projeto){
         String[]nomeColuna = {"Modulo", "Descrição", "Hora"};
-        lista = modulor.getLista(projeto);
+        lista = modulor.getLista(cd_projeto);
         Object[][] dadosArray = new Object[lista.size()][nomeColuna.length];
         
         for(int i = 0; i < lista.size(); i++){

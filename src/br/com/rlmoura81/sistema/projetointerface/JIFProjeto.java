@@ -1,12 +1,21 @@
 package br.com.rlmoura81.sistema.projetointerface;
 
 import br.com.rlmoura81.sistema.principalinterface.JPLogin;
+import br.com.rlmoura81.sistema.projeto.Etapa;
+import br.com.rlmoura81.sistema.projeto.EtapaRepository;
+import br.com.rlmoura81.sistema.projeto.EtapaUtil;
 import br.com.rlmoura81.sistema.projeto.Modulo;
 import br.com.rlmoura81.sistema.projeto.ModuloRepository;
 import br.com.rlmoura81.sistema.projeto.ModuloUtil;
 import br.com.rlmoura81.sistema.projeto.Projeto;
 import br.com.rlmoura81.sistema.projeto.ProjetoRepository;
 import br.com.rlmoura81.sistema.projeto.ProjetoUtil;
+import br.com.rlmoura81.sistema.projeto.StatusEtapa;
+import br.com.rlmoura81.sistema.projeto.StatusEtapaRepository;
+import br.com.rlmoura81.sistema.projeto.StatusEtapaUtil;
+import br.com.rlmoura81.sistema.projeto.TipoEtapa;
+import br.com.rlmoura81.sistema.projeto.TipoEtapaRepository;
+import br.com.rlmoura81.sistema.projeto.TipoEtapaUtil;
 import javax.swing.JOptionPane;
 
 public class JIFProjeto extends javax.swing.JInternalFrame {
@@ -28,12 +37,25 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     Modulo modulo = null;
     ModuloRepository modulor = new ModuloRepository();
     ModuloUtil modulou = new ModuloUtil();
+    
+    Etapa etapa = null;
+    EtapaRepository etapar = new EtapaRepository();
+    EtapaUtil etapau = new EtapaUtil();
+    
+    TipoEtapa tpetapa = null;
+    TipoEtapaRepository tpetapar = new TipoEtapaRepository();
+    TipoEtapaUtil tpetapau = new TipoEtapaUtil();
+    
+    StatusEtapa stetapa = null;
+    StatusEtapaRepository stetapar = new StatusEtapaRepository();
+    StatusEtapaUtil stetapau = new StatusEtapaUtil();
             
     public JIFProjeto() {
         initComponents();
         
         jBNovo.setEnabled(false);
         jTPProjeto.setEnabledAt(1, false);
+        jTPProjeto.setEnabledAt(2, false);
         tabelaProjeto();        
     }
 
@@ -64,19 +86,19 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTModulo = new javax.swing.JTable();
         jPEtapa = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jPEstapaCampos = new javax.swing.JPanel();
+        jLTipoEtapa = new javax.swing.JLabel();
+        jCBTipoEtapa = new javax.swing.JComboBox<>();
+        jLStatusEtapa = new javax.swing.JLabel();
+        jCBStatusEtapa = new javax.swing.JComboBox<>();
+        jLTituloEtapa = new javax.swing.JLabel();
+        jTFTituloEtapa = new javax.swing.JTextField();
+        jDescricaoEtapa = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jTADescricaoEtapa = new javax.swing.JTextArea();
+        jPGrid = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTEtapa = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -310,98 +332,113 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
         jTPProjeto.addTab("Modulos", jPModulo);
 
-        jLabel1.setText("Tipo:");
+        jPEstapaCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Implementecao", "Correcao" }));
+        jLTipoEtapa.setText("Tipo:");
 
-        jLabel2.setText("Status:");
+        jCBTipoEtapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBTipoEtapaActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nao Iniciado", "Em Andamento", "Em Teste", "Concluido" }));
+        jLStatusEtapa.setText("Status:");
 
-        jLabel3.setText("Titulo:");
+        jCBStatusEtapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBStatusEtapaActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setText("jTextField1");
+        jLTituloEtapa.setText("Titulo:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jDescricaoEtapa.setText("Descricao:");
 
-        jLabel4.setText("Descricao:");
+        jTADescricaoEtapa.setColumns(20);
+        jTADescricaoEtapa.setRows(5);
+        jScrollPane3.setViewportView(jTADescricaoEtapa);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPEstapaCamposLayout = new javax.swing.GroupLayout(jPEstapaCampos);
+        jPEstapaCampos.setLayout(jPEstapaCamposLayout);
+        jPEstapaCamposLayout.setHorizontalGroup(
+            jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPEstapaCamposLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                    .addGroup(jPEstapaCamposLayout.createSequentialGroup()
+                        .addGroup(jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPEstapaCamposLayout.createSequentialGroup()
+                                .addComponent(jLTipoEtapa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCBTipoEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
+                                .addComponent(jLStatusEtapa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jCBStatusEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPEstapaCamposLayout.createSequentialGroup()
+                                .addComponent(jLTituloEtapa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFTituloEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDescricaoEtapa))
+                        .addGap(0, 361, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPEstapaCamposLayout.setVerticalGroup(
+            jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPEstapaCamposLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
+                .addGroup(jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jCBTipoEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLStatusEtapa)
+                        .addComponent(jCBStatusEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLTipoEtapa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPEstapaCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLTituloEtapa)
+                    .addComponent(jTFTituloEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jDescricaoEtapa)
                 .addGap(8, 8, 8)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jPGrid.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jTEtapa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jTEtapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTEtapaMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTEtapa);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPGridLayout = new javax.swing.GroupLayout(jPGrid);
+        jPGrid.setLayout(jPGridLayout);
+        jPGridLayout.setHorizontalGroup(
+            jPGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPGridLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPGridLayout.setVerticalGroup(
+            jPGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPGridLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -412,17 +449,17 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             .addGroup(jPEtapaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPEtapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPEstapaCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPGrid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPEtapaLayout.setVerticalGroup(
             jPEtapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPEtapaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPEstapaCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPGrid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -469,8 +506,31 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFHora.setText(null);
     }
     
+    private void limpaCampoEtapa(){
+        tpetapau.jcTipoEtapa(jCBTipoEtapa);
+        stetapau.jcStatusEtapa(jCBStatusEtapa);
+        jTFTituloEtapa.setText(null);
+        jTADescricaoEtapa.setText(null);
+    }
+    
     private void tabelaProjeto(){
         projetou.tabelaProjeto(jTProjeto);
+    }
+    
+    private void tabelaModulo(){
+        modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
+    }
+    
+    private void tabelaEtapa(){
+        etapau.tabelaEtapa(jTEtapa, modulo.getCd_modulo());
+    }
+    
+    private void jcTipoEtapa(){
+        tpetapau.jcTipoEtapa(jCBTipoEtapa);
+    }
+    
+    private void jcStatusEtapa(){
+        stetapau.jcStatusEtapa(jCBStatusEtapa);
     }
     
     private boolean validaCampoProjeto(){
@@ -496,6 +556,30 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         if(jTFHora.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Campo em branco.");
             jTFHora.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean validaCampoEtapa(){
+        if(tpetapa == null){
+            JOptionPane.showMessageDialog(null, "Selecione o Tipo.");
+            jCBTipoEtapa.requestFocus();
+            return false;
+        }
+        if(stetapa == null){
+            JOptionPane.showMessageDialog(null, "Selecione o Status.");
+            jCBStatusEtapa.requestFocus();
+            return false;
+        }
+        if(jTFTituloEtapa.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo em branco.");
+            jTFTituloEtapa.requestFocus();
+            return false;
+        }
+        if(jTADescricaoEtapa.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo em branco.");
+            jTADescricaoEtapa.requestFocus();
             return false;
         }
         return true;
@@ -536,6 +620,28 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             modulo = null;
         }    
     }
+    
+    private void etapaSalvar(){
+        if(etapa == null){
+            etapa = new Etapa();
+            etapa.setTipoetapa(tpetapa);
+            etapa.setStatusetapa(stetapa);
+            etapa.setDs_etapa(jTFTituloEtapa.getText());
+            etapa.setDs_descricao(jTADescricaoEtapa.getText());
+            etapa.setModulo(modulo);
+            etapa.setCd_usuario(JPLogin.codloginuser);
+            etapar.inserir(etapa);
+            etapa = null;
+        }else{
+            etapa.setTipoetapa(tpetapa);
+            etapa.setStatusetapa(stetapa);
+            etapa.setDs_etapa(jTFTituloEtapa.getText());
+            etapa.setDs_descricao(jTADescricaoEtapa.getText());
+            etapa.setCd_usuario(JPLogin.codloginuser);
+            etapar.alterar(etapa);
+            etapa = null;
+        }
+    }
         
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         if(jTPProjeto.getSelectedIndex() == 0){
@@ -549,7 +655,14 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             if(validaCampoModulo()){
                 moduloSalvar(); 
                 limpaCampoModulo();
-                modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
+                tabelaModulo();
+            }
+        }
+        if(jTPProjeto.getSelectedIndex() == 2){
+            if(validaCampoEtapa()){
+                etapaSalvar();
+                limpaCampoEtapa();
+                tabelaEtapa();
             }
         }
     }//GEN-LAST:event_jBSalvarActionPerformed
@@ -561,8 +674,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private void jTProjetoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProjetoMouseClicked
         projeto = (Projeto)projetou.getSelectObject(jTProjeto);
         jTFProjeto.setText(projeto.getDs_projeto());
+        tabelaModulo();
         jTPProjeto.setEnabledAt(1, true);
-        modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
         jBNovo.setEnabled(true);
     }//GEN-LAST:event_jTProjetoMouseClicked
 
@@ -571,6 +684,11 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFModulo.setText(modulo.getDs_modulo());
         jTFDescricaoModulo.setText(modulo.getDs_descricao());
         jTFHora.setText(Integer.toString(modulo.getNm_hora()));
+        tabelaEtapa();
+        jTPProjeto.setEnabledAt(2, true);
+        jcTipoEtapa();
+        jcStatusEtapa();
+
     }//GEN-LAST:event_jTModuloMouseClicked
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
@@ -588,6 +706,14 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                 modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
             }
         }
+        
+        if(jTPProjeto.getSelectedIndex() == 2){
+            if((Etapa)etapau.getSelectObject(jTEtapa) != null){
+                modulor.excluir(modulo);
+                limpaCampoModulo();
+                modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
+            }
+        }
         jBNovo.setEnabled(false);
     }//GEN-LAST:event_jBExcluirActionPerformed
 
@@ -597,42 +723,69 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jBNovo.setEnabled(false);
     }//GEN-LAST:event_jBNovoActionPerformed
 
+    private void jCBTipoEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTipoEtapaActionPerformed
+        if(jCBTipoEtapa.getSelectedIndex() != 0){
+            tpetapa = new TipoEtapa();
+            tpetapa = (TipoEtapa)jCBTipoEtapa.getSelectedItem();    
+        }else{
+            tpetapa = null;
+        }
+        
+    }//GEN-LAST:event_jCBTipoEtapaActionPerformed
+
+    private void jCBStatusEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBStatusEtapaActionPerformed
+        if(jCBStatusEtapa.getSelectedIndex() != 0){
+            stetapa = new StatusEtapa();
+            stetapa = (StatusEtapa)jCBStatusEtapa.getSelectedItem();    
+        }else{
+            stetapa = null;
+        }
+    }//GEN-LAST:event_jCBStatusEtapaActionPerformed
+
+    private void jTEtapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEtapaMouseClicked
+        etapa = (Etapa)etapau.getSelectObject(jTEtapa);
+        jCBTipoEtapa.getModel().setSelectedItem(etapa.getTipoetapa());
+        jCBStatusEtapa.getModel().setSelectedItem(etapa.getStatusetapa());
+        jTFTituloEtapa.setText(etapa.getDs_etapa());
+        jTADescricaoEtapa.setText(etapa.getDs_descricao());
+    }//GEN-LAST:event_jTEtapaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBNovo;
     private javax.swing.JButton jBSalvar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<StatusEtapa> jCBStatusEtapa;
+    private javax.swing.JComboBox<TipoEtapa> jCBTipoEtapa;
+    private javax.swing.JLabel jDescricaoEtapa;
     private javax.swing.JLabel jLDescricaoModulo;
     private javax.swing.JLabel jLHorasModulo;
     private javax.swing.JLabel jLModulo;
     private javax.swing.JLabel jLProjeto;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLStatusEtapa;
+    private javax.swing.JLabel jLTipoEtapa;
+    private javax.swing.JLabel jLTituloEtapa;
     private javax.swing.JPanel jPBotoes;
     private javax.swing.JPanel jPCampos;
+    private javax.swing.JPanel jPEstapaCampos;
     private javax.swing.JPanel jPEtapa;
+    private javax.swing.JPanel jPGrid;
     private javax.swing.JPanel jPModulo;
     private javax.swing.JPanel jPModuloCampos;
     private javax.swing.JPanel jPModuloGrid;
     private javax.swing.JPanel jPProjeto;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTADescricaoEtapa;
+    private javax.swing.JTable jTEtapa;
     private javax.swing.JTextField jTFDescricaoModulo;
     private javax.swing.JTextField jTFHora;
     private javax.swing.JTextField jTFModulo;
     private javax.swing.JTextField jTFProjeto;
+    private javax.swing.JTextField jTFTituloEtapa;
     private javax.swing.JTable jTModulo;
     private javax.swing.JTabbedPane jTPProjeto;
     private javax.swing.JTable jTProjeto;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
