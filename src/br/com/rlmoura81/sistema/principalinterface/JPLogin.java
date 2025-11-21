@@ -38,7 +38,7 @@ public class JPLogin extends javax.swing.JPanel {
         jLLogin = new javax.swing.JLabel();
         jTFLogin = new javax.swing.JTextField();
         jLSenha = new javax.swing.JLabel();
-        jFTFSenha = new javax.swing.JFormattedTextField();
+        jPFSenha = new javax.swing.JPasswordField();
         jPBotoes = new javax.swing.JPanel();
         jBAcessar = new javax.swing.JButton();
 
@@ -58,10 +58,10 @@ public class JPLogin extends javax.swing.JPanel {
                     .addComponent(jLLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(jFTFSenha))
-                .addContainerGap())
+                .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPFSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jTFLogin))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCamposLayout.setVerticalGroup(
             jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,11 +70,11 @@ public class JPLogin extends javax.swing.JPanel {
                 .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLLogin))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLSenha)
-                    .addComponent(jFTFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLSenha))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jPBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -111,7 +111,7 @@ public class JPLogin extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,7 +126,7 @@ public class JPLogin extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
    
     private boolean validaCampos(){
-        if((jTFLogin.getText().isEmpty()) | (jFTFSenha.getText().isEmpty())){
+        if((jTFLogin.getText().isEmpty()) | (jPFSenha.getText().isEmpty())){
             JOptionPane.showMessageDialog(null, "Campos em branco.", 
                     "Login", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -161,7 +161,7 @@ public class JPLogin extends javax.swing.JPanel {
                     "Login", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
-        if(!jFTFSenha.getText().equals(usuario.getDs_senha())){
+        if(!jPFSenha.getText().equals(usuario.getDs_senha())){
             JOptionPane.showMessageDialog(null, "Senha inválida.",
                     "Login", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -191,11 +191,11 @@ public class JPLogin extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAcessar;
-    private javax.swing.JFormattedTextField jFTFSenha;
     private javax.swing.JLabel jLLogin;
     private javax.swing.JLabel jLSenha;
     private javax.swing.JPanel jPBotoes;
     private javax.swing.JPanel jPCampos;
+    private javax.swing.JPasswordField jPFSenha;
     private javax.swing.JTextField jTFLogin;
     // End of variables declaration//GEN-END:variables
 }

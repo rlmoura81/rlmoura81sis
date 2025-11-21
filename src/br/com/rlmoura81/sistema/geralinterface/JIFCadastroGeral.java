@@ -154,7 +154,7 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
     }
     
     private boolean validaCampos(){
-        if(modulo != 5){
+        if(modulo == 1 || modulo == 4){
             if(jTFDescricao.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Campo em branco.");
                 jTFDescricao.requestFocus();
@@ -168,13 +168,18 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
             if(!util.validaDataCampo(jFTFData.getText())){
                 jFTFData.requestFocus();
                 return false;
-            }
-                    
+            }                    
             if(jTFHora.getText().isEmpty()){
                 jTFHora.requestFocus();
                 return false;
             }            
-        }else{
+        }
+        if(modulo == 2 || modulo == 3){
+            if(jTFDescricao.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Campo em branco.");
+                jTFDescricao.requestFocus();
+                return false;
+            }
             if(jFTFValor.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Campo em branco.");
                 jFTFValor.requestFocus();
@@ -183,13 +188,26 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
             if(!util.validaDataCampo(jFTFData.getText())){
                 jFTFData.requestFocus();
                 return false;
-            }            
+            } 
+        }
+        if(modulo == 5){
+            if(jFTFValor.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Campo em branco.");
+                jFTFValor.requestFocus();
+                return false;
+            }        
+            if(!util.validaDataCampo(jFTFData.getText())){
+                jFTFData.requestFocus();
+                return false;
+            } 
         }
         return true;
     }
     
     private void salvar(){
+        System.out.println("SALVAR");
         if(cadgeral == null){
+            System.out.println("CADASTRO NULLO");
             cadgeral = new CadastroGeral();
             cadgeral.setDs_cadgeral(jTFDescricao.getText());
             cadgeral.setGrupo(grupo);
@@ -197,46 +215,59 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
             cadgeral.setNm_valor(Utilidade.converter(jFTFValor.getText()));
             cadgeral.setCd_usuario(JPLogin.codloginuser);
             if(modulo == 1){
+                System.out.println("CURSO");
                 cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 cursor.inserir(cadgeral);
             }
             if(modulo == 2){
+                System.out.println("DESPESA");
+                System.out.println(cadgeral);
                 despesar.inserir(cadgeral);
             }
-            if(modulo == 3){
+            if(modulo == 3){                
+                System.out.println("PATRIMONIO");
                 cadgeral.setNm_qtde(Integer.parseInt(jTFQtde.getText()));
+                System.out.println(cadgeral);
                 patrimonior.inserir(cadgeral);
             }
             if(modulo == 4){
+                System.out.println("TRABALHO");
                 cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 trabalhor.inserir(cadgeral);
             }   
             if(modulo == 5){
+                System.out.println("SALARIO");
                 salarior.inserir(cadgeral);
             }
             cadgeral = null;
         }else{
+            System.out.println("CADASTRO !NULL");
             cadgeral.setDs_cadgeral(jTFDescricao.getText());
             cadgeral.setGrupo(grupo);
             cadgeral.setDt_cadgeral(util.recebeData(jFTFData.getText()));
             cadgeral.setNm_valor(Utilidade.converter(jFTFValor.getText()));
             cadgeral.setCd_usuario(JPLogin.codloginuser); 
             if(modulo == 1){
+                System.out.println("CURSO !NULL");
                 cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 cursor.alterar(cadgeral);                
             }
-            if(modulo == 2){               
+            if(modulo == 2){          
+                System.out.println("DESPESA !NULL");
                 despesar.alterar(cadgeral);
             }
             if(modulo == 3){
+                System.out.println("PATRIMONIO !NULL");
                 cadgeral.setNm_qtde(Integer.parseInt(jTFQtde.getText()));
                 patrimonior.alterar(cadgeral);
             }
             if(modulo == 4){
+                System.out.println("TRABALHO !NULL");
                 cadgeral.setNm_hora(Integer.parseInt(jTFHora.getText()));
                 trabalhor.alterar(cadgeral);
             }  
             if(modulo == 5){
+                System.out.println("SALARIO !NULL");
                 salarior.alterar(cadgeral);
             }
             cadgeral = null;
@@ -503,11 +534,13 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        System.out.println("BOTAO");
         if(validaCampos()){
-                salvar();
-                tabelaCadGeral();
-                limpaCampos();
-            }        
+            System.out.println("CLIQUE");
+            salvar();
+            tabelaCadGeral();
+            limpaCampos();
+        }        
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed

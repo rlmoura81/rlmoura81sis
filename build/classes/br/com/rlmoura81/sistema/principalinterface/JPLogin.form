@@ -20,7 +20,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPCampos" max="32767" attributes="0"/>
-                  <Component id="jPBotoes" max="32767" attributes="0"/>
+                  <Component id="jPBotoes" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -58,11 +58,11 @@
                       <Component id="jLSenha" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTFLogin" pref="150" max="32767" attributes="0"/>
-                      <Component id="jFTFSenha" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jPFSenha" pref="150" max="32767" attributes="0"/>
+                      <Component id="jTFLogin" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,12 +74,12 @@
                       <Component id="jTFLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jPFSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFTFSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -97,7 +97,7 @@
             <Property name="text" type="java.lang.String" value="Senha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFTFSenha">
+        <Component class="javax.swing.JPasswordField" name="jPFSenha">
         </Component>
       </SubComponents>
     </Container>
