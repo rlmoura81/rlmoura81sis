@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/projetointerface/JIFProjetoGestao.java</file>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/financeirointerface/JIFValores.java</file>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/financeiro/FinanceiroCalculo.java</file>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/geral/SalarioRepository.java</file>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/geral/DespesaRepository.java</file>
+            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/geral/TrabalhoRepository.java</file>
             <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/projetointerface/JIFProjeto.java</file>
-            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/projeto/Etapa.java</file>
-            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/projeto/EtapaRepository.java</file>
-            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/projeto/EtapaUtil.java</file>
-            <file>file:/C:/Users/rlmou/OneDrive/Documents/NetBeansProjects/br.com.rlmoura81.sistema/src/br/com/rlmoura81/sistema/geralinterface/JIFCadastroGeral.java</file>
         </group>
     </open-files>
 </project-private>

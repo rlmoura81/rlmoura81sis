@@ -11,10 +11,8 @@ import br.com.rlmoura81.sistema.projeto.Projeto;
 import br.com.rlmoura81.sistema.projeto.ProjetoRepository;
 import br.com.rlmoura81.sistema.projeto.ProjetoUtil;
 import br.com.rlmoura81.sistema.projeto.StatusEtapa;
-import br.com.rlmoura81.sistema.projeto.StatusEtapaRepository;
 import br.com.rlmoura81.sistema.projeto.StatusEtapaUtil;
 import br.com.rlmoura81.sistema.projeto.TipoEtapa;
-import br.com.rlmoura81.sistema.projeto.TipoEtapaRepository;
 import br.com.rlmoura81.sistema.projeto.TipoEtapaUtil;
 import javax.swing.JOptionPane;
 
@@ -43,11 +41,9 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     EtapaUtil etapau = new EtapaUtil();
     
     TipoEtapa tpetapa = null;
-    TipoEtapaRepository tpetapar = new TipoEtapaRepository();
     TipoEtapaUtil tpetapau = new TipoEtapaUtil();
     
     StatusEtapa stetapa = null;
-    StatusEtapaRepository stetapar = new StatusEtapaRepository();
     StatusEtapaUtil stetapau = new StatusEtapaUtil();
             
     public JIFProjeto() {
@@ -82,6 +78,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFDescricaoModulo = new javax.swing.JTextField();
         jLHorasModulo = new javax.swing.JLabel();
         jTFHora = new javax.swing.JTextField();
+        jCBComplexidade = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jPModuloGrid = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTModulo = new javax.swing.JTable();
@@ -219,7 +217,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             jPProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPProjetoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPProjetoLayout.setVerticalGroup(
@@ -238,6 +236,10 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
         jLHorasModulo.setText("Horas:");
 
+        jCBComplexidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baixa", "Media", "Alta" }));
+
+        jLabel1.setText("Total Horas:");
+
         javax.swing.GroupLayout jPModuloCamposLayout = new javax.swing.GroupLayout(jPModuloCampos);
         jPModuloCampos.setLayout(jPModuloCamposLayout);
         jPModuloCamposLayout.setHorizontalGroup(
@@ -255,8 +257,12 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLHorasModulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(327, Short.MAX_VALUE))
+                        .addComponent(jTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCBComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         jPModuloCamposLayout.setVerticalGroup(
             jPModuloCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +276,9 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                     .addComponent(jLDescricaoModulo)
                     .addComponent(jTFDescricaoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLHorasModulo)
-                    .addComponent(jTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCBComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -381,7 +389,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTFTituloEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jDescricaoEtapa))
-                        .addGap(0, 361, Short.MAX_VALUE)))
+                        .addGap(0, 439, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPEstapaCamposLayout.setVerticalGroup(
@@ -431,7 +439,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             jPGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPGridLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPGridLayout.setVerticalGroup(
@@ -475,7 +483,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPProjeto))
+                        .addComponent(jTPProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))
                     .addComponent(jPCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -606,6 +614,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             modulo.setDs_modulo(jTFModulo.getText());
             modulo.setDs_descricao(jTFDescricaoModulo.getText());   
             modulo.setNm_hora(Integer.parseInt(jTFHora.getText()));
+            modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
             modulo.setProjeto(projeto);
             modulo.setCd_usuario(JPLogin.codloginuser);
             modulor.inserir(modulo);
@@ -614,6 +623,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             modulo.setDs_modulo(jTFModulo.getText());
             modulo.setDs_descricao(jTFDescricaoModulo.getText());   
             modulo.setNm_hora(Integer.parseInt(jTFHora.getText()));
+            modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
             modulo.setProjeto(projeto);
             modulo.setCd_usuario(JPLogin.codloginuser);
             modulor.alterar(modulo);
@@ -684,6 +694,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFModulo.setText(modulo.getDs_modulo());
         jTFDescricaoModulo.setText(modulo.getDs_descricao());
         jTFHora.setText(Integer.toString(modulo.getNm_hora()));
+        jCBComplexidade.setSelectedIndex(modulo.getNm_complexidade());
         tabelaEtapa();
         jTPProjeto.setEnabledAt(2, true);
         jcTipoEtapa();
@@ -754,6 +765,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBNovo;
     private javax.swing.JButton jBSalvar;
+    private javax.swing.JComboBox<String> jCBComplexidade;
     private javax.swing.JComboBox<StatusEtapa> jCBStatusEtapa;
     private javax.swing.JComboBox<TipoEtapa> jCBTipoEtapa;
     private javax.swing.JLabel jDescricaoEtapa;
@@ -764,6 +776,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLStatusEtapa;
     private javax.swing.JLabel jLTipoEtapa;
     private javax.swing.JLabel jLTituloEtapa;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPBotoes;
     private javax.swing.JPanel jPCampos;
     private javax.swing.JPanel jPEstapaCampos;

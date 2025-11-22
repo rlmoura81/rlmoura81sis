@@ -3,6 +3,7 @@ package br.com.rlmoura81.sistema.geral;
 import br.com.rlmoura81.sistema.principal.IPadraoRepository;
 import br.com.rlmoura81.sistema.principalinterface.JPLogin;
 import br.com.rlmoura81.sistema.utilidade.Utilidade;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -138,5 +139,43 @@ public class TrabalhoRepository implements IPadraoRepository{
                     ex.getMessage(), "Trabalho", JOptionPane.INFORMATION_MESSAGE);
         }
         return c;
-    }        
+    }   
+    
+    public BigDecimal valorSalarioAtual(){
+        BigDecimal vlSalario = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT nm_valor" +
+                  "  FROM trabalho" +
+                  " WHERE dt_trabalho = (SELECT MAX(dt_trabalho)" +
+                  "                       FROM trabalho)";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlSalario = rs.getBigDecimal("nm_valor");   
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valor de salario atual:\n" +
+                    ex.getMessage(), "Trabalho", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlSalario;
+    }  
+    
+        public BigDecimal valorSalarioMaior(){
+        BigDecimal vlSalario = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT MAX(nm_valor)" +
+                  "  FROM trabalho";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlSalario = rs.getBigDecimal("MAX(nm_valor)");   
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valor de salario maior:\n" +
+                    ex.getMessage(), "Trabalho", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlSalario;
+    }  
 }

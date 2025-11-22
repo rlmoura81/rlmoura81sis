@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
@@ -33,7 +33,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPBotoes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTPProjeto" max="32767" attributes="0"/>
+                      <Component id="jTPProjeto" pref="863" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPCampos" max="32767" attributes="0"/>
               </Group>
@@ -190,7 +190,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="769" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="847" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -282,9 +282,13 @@
                                   <Component id="jLHorasModulo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jTFHora" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jCBComplexidade" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="327" max="32767" attributes="0"/>
+                          <EmptySpace pref="179" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -302,6 +306,8 @@
                               <Component id="jTFDescricaoModulo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLHorasModulo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTFHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCBComplexidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -329,6 +335,25 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFHora">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jCBComplexidade">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Baixa"/>
+                        <StringItem index="1" value="Media"/>
+                        <StringItem index="2" value="Alta"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Total Horas:"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -447,7 +472,7 @@
                                       </Group>
                                       <Component id="jDescricaoEtapa" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="361" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="439" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -560,7 +585,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" pref="753" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" pref="831" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

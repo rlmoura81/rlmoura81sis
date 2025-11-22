@@ -18,14 +18,15 @@ public class ModuloRepository implements IPadraoRepository{
     public void inserir(Object o) {
         Modulo m = (Modulo) o;
         try{                       
-            sql = "INSERT INTO modulo (cd_modulo, ds_modulo, ds_descricao, nm_hora, cd_projeto, cd_usuario)" +
+            sql = "INSERT INTO modulo (cd_modulo, ds_modulo, ds_descricao, nm_hora, nm_complexidade, cd_projeto, cd_usuario)" +
                   "     VALUES (sq_modulo.nextval, ?, ?, ?, ?, ?)";
                   PreparedStatement ps = JPLogin.con.prepareStatement(sql);
                   ps.setString(1, m.getDs_modulo());
                   ps.setString(2, m.getDs_descricao());
-                  ps.setInt(3, m.getNm_hora());                  
-                  ps.setInt(4, m.getProjeto().getCd_projeto());
-                  ps.setInt(5, m.getCd_usuario());
+                  ps.setInt(3, m.getNm_hora()); 
+                  ps.setInt(4, m.getNm_complexidade());
+                  ps.setInt(5, m.getProjeto().getCd_projeto());
+                  ps.setInt(6, m.getCd_usuario());
                   ps.execute();
                   ps.close();
                   JOptionPane.showMessageDialog(null, "Salvo.", "Módulo", JOptionPane.INFORMATION_MESSAGE);
@@ -43,6 +44,7 @@ public class ModuloRepository implements IPadraoRepository{
                   "   SET ds_modulo = ?," +
                   "       ds_descricao = ?," +
                   "       nm_hora = ?," +
+                  "       nm_complexidade = ?," +  
                   "       cd_usuario = ?" +
                   " WHERE cd_modulo = ?" +
                   "   AND cd_projeto = ?";
@@ -50,9 +52,10 @@ public class ModuloRepository implements IPadraoRepository{
                   ps.setString(1, m.getDs_modulo());
                   ps.setString(2, m.getDs_descricao());
                   ps.setInt(3, m.getNm_hora());
-                  ps.setInt(4, m.getCd_usuario());
-                  ps.setInt(5, m.getCd_modulo());
-                  ps.setInt(6, m.getProjeto().getCd_projeto());
+                  ps.setInt(4, m.getNm_complexidade());
+                  ps.setInt(5, m.getCd_usuario());
+                  ps.setInt(6, m.getCd_modulo());
+                  ps.setInt(7, m.getProjeto().getCd_projeto());
                   ps.execute();
                   ps.close();
                   JOptionPane.showMessageDialog(null, "Salvo.", "Módulo", JOptionPane.INFORMATION_MESSAGE);
@@ -90,7 +93,7 @@ public class ModuloRepository implements IPadraoRepository{
     public ArrayList getLista(int cd_projeto) {
         ArrayList modulo = new ArrayList();
         try{
-            sql = "SELECT cd_modulo, ds_modulo, ds_descricao, nm_hora, cd_projeto, cd_usuario" +
+            sql = "SELECT cd_modulo, ds_modulo, ds_descricao, nm_hora, nm_complexidade, cd_projeto, cd_usuario" +
                   "  FROM modulo" +
                   " WHERE cd_projeto = ?" +
                   "   AND cd_usuario = ?" + 
@@ -105,6 +108,7 @@ public class ModuloRepository implements IPadraoRepository{
                     rs.getString("ds_modulo"),
                     rs.getString("ds_descricao"),
                     rs.getInt("nm_hora"),
+                    rs.getInt("nm_complexidade"),
                     (Projeto)pr.getById(rs.getInt("cd_projeto")),
                     rs.getInt("cd_usuario"));
                     modulo.add(m);
@@ -116,12 +120,35 @@ public class ModuloRepository implements IPadraoRepository{
         }
         return modulo;
     }
+    
+    public ArrayList getListaProjetoModulo() {
+        ArrayList modulo = new ArrayList();
+        try{
+            sql = "SELECT COUNT(cd_modulo), SUM(nm_hora), cd_projeto" +
+                  "  FROM modulo" + 
+                  " GROUP BY cd_projeto";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();            
+            while(rs.next()){
+                Modulo m = new Modulo(
+                    rs.getInt("COUNT(cd_modulo)"),
+                    rs.getInt("SUM(nm_hora)"),
+                    (Projeto)pr.getById(rs.getInt("cd_projeto")));
+                    modulo.add(m);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a lista de projetos e modulos:\n" +
+                    ex.getMessage(), "Valores Projetos", JOptionPane.ERROR_MESSAGE);
+        }
+        return modulo;
+    }
 
     @Override
     public Object getById(int id) {
         Modulo m = null;
         try{
-            sql = "SELECT cd_modulo, ds_modulo, ds_descricao, nm_hora, cd_projeto, cd_usuario" +
+            sql = "SELECT cd_modulo, ds_modulo, ds_descricao, nm_hora, nm_complexidade, cd_projeto, cd_usuario" +
                   "  FROM modulo" +
                   " WHERE cd_projeto = ?";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
@@ -133,6 +160,7 @@ public class ModuloRepository implements IPadraoRepository{
                     rs.getString("ds_modulo"),
                     rs.getString("ds_descricao"),
                     rs.getInt("nm_hora"),
+                    rs.getInt("nm_complexidade"),
                     (Projeto)pr.getById(rs.getInt("cd_projeto")),
                     rs.getInt("cd_usuario"));
             }

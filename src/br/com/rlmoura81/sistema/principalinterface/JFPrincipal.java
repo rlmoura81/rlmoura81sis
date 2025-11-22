@@ -1,8 +1,10 @@
 package br.com.rlmoura81.sistema.principalinterface;
 
+import br.com.rlmoura81.financeirointerface.JIFValores;
 import br.com.rlmoura81.sistema.geralinterface.JIFCadastroGeral;
 import br.com.rlmoura81.sistema.geralinterface.JIFGrupo;
 import br.com.rlmoura81.sistema.projetointerface.JIFProjeto;
+import br.com.rlmoura81.financeirointerface.JIFValoresProjeto;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +35,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         jDPPrincipal = new javax.swing.JDesktopPane();
         jMBPrincipal = new javax.swing.JMenuBar();
         jMPrincipal = new javax.swing.JMenu();
+        jMProjeto = new javax.swing.JMenu();
         jMIProjeto = new javax.swing.JMenuItem();
+        jMFinanceiro = new javax.swing.JMenu();
+        jMIValores = new javax.swing.JMenuItem();
+        jMIValoresProjetos = new javax.swing.JMenuItem();
         jMITerminal = new javax.swing.JMenuItem();
         jMISair = new javax.swing.JMenuItem();
         JMGeral = new javax.swing.JMenu();
@@ -60,13 +66,37 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jMPrincipal.setText("Principal");
 
+        jMProjeto.setText("Projeto");
+
         jMIProjeto.setText("Projetos");
         jMIProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIProjetoActionPerformed(evt);
             }
         });
-        jMPrincipal.add(jMIProjeto);
+        jMProjeto.add(jMIProjeto);
+
+        jMPrincipal.add(jMProjeto);
+
+        jMFinanceiro.setText("Financeiro");
+
+        jMIValores.setText("Valores");
+        jMIValores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIValoresActionPerformed(evt);
+            }
+        });
+        jMFinanceiro.add(jMIValores);
+
+        jMIValoresProjetos.setText("Projetos");
+        jMIValoresProjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIValoresProjetosActionPerformed(evt);
+            }
+        });
+        jMFinanceiro.add(jMIValoresProjetos);
+
+        jMPrincipal.add(jMFinanceiro);
 
         jMITerminal.setText("Terminal");
         jMITerminal.addActionListener(new java.awt.event.ActionListener() {
@@ -260,11 +290,20 @@ public class JFPrincipal extends javax.swing.JFrame {
         gerenciainterface.abrirInterface(JIFGrupo.getInstancia());
     }//GEN-LAST:event_jMIGrupoActionPerformed
 
+    private void jMIValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIValoresActionPerformed
+        gerenciainterface.abrirInterface(JIFValores.getInstancia());
+    }//GEN-LAST:event_jMIValoresActionPerformed
+
+    private void jMIValoresProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIValoresProjetosActionPerformed
+        gerenciainterface.abrirInterface(JIFValoresProjeto.getInstancia());
+    }//GEN-LAST:event_jMIValoresProjetosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMGeral;
     private javax.swing.JMenuItem JMITrabalho;
     private javax.swing.JDesktopPane jDPPrincipal;
     private javax.swing.JMenuBar jMBPrincipal;
+    private javax.swing.JMenu jMFinanceiro;
     private javax.swing.JMenuItem jMICursos;
     private javax.swing.JMenuItem jMIDespesa;
     private javax.swing.JMenuItem jMIGrupo;
@@ -273,7 +312,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMISair;
     private javax.swing.JMenuItem jMISalario;
     private javax.swing.JMenuItem jMITerminal;
+    private javax.swing.JMenuItem jMIValores;
+    private javax.swing.JMenuItem jMIValoresProjetos;
     private javax.swing.JMenu jMPrincipal;
+    private javax.swing.JMenu jMProjeto;
     private javax.swing.JMenu jMSobre;
     // End of variables declaration//GEN-END:variables
 }

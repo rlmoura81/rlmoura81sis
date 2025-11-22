@@ -13,14 +13,28 @@ public class ModuloUtil {
     ArrayList lista = new ArrayList();
     
     public void tabelaModulo(JTable o, int cd_projeto){
-        String[]nomeColuna = {"Modulo", "Descrição", "Hora"};
+        String[]nomeColuna = {"Modulo", "Descrição", "Hora", "Complexidade"};
         lista = modulor.getLista(cd_projeto);
-        Object[][] dadosArray = new Object[lista.size()][nomeColuna.length];
-        
+        Object[][] dadosArray = new Object[lista.size()][nomeColuna.length];        
         for(int i = 0; i < lista.size(); i++){
             modulo = (Modulo)lista.get(i);
             dadosArray[i][0] = modulo.getDs_modulo();
             dadosArray[i][1] = modulo.getDs_descricao();
+            dadosArray[i][2] = modulo.getNm_hora();
+            dadosArray[i][3] = modulo.getNm_complexidade();
+        }
+        DefaultTableModel tModulo = new DefaultTableModel(dadosArray, nomeColuna);
+        o.setModel(tModulo);
+    }
+    
+    public void tabelaModulo(JTable o){
+        String[]nomeColuna = {"Projeto", "Modulos", "Hora"};
+        lista = modulor.getListaProjetoModulo();
+        Object[][] dadosArray = new Object[lista.size()][nomeColuna.length];        
+        for(int i = 0; i < lista.size(); i++){
+            modulo = (Modulo)lista.get(i);
+            dadosArray[i][0] = modulo.getProjeto().getDs_projeto();
+            dadosArray[i][1] = modulo.getCd_modulo();
             dadosArray[i][2] = modulo.getNm_hora();
         }
         DefaultTableModel tModulo = new DefaultTableModel(dadosArray, nomeColuna);

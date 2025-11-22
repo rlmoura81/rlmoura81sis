@@ -3,6 +3,7 @@ package br.com.rlmoura81.sistema.geral;
 import br.com.rlmoura81.sistema.principal.IPadraoRepository;
 import br.com.rlmoura81.sistema.principalinterface.JPLogin;
 import br.com.rlmoura81.sistema.utilidade.Utilidade;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,4 +126,24 @@ public class SalarioRepository implements IPadraoRepository{
         }
         return c;
     }        
+    
+    public BigDecimal valorSalarioMinimoAtual(){
+        BigDecimal vlSalario = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT nm_valor" +
+                  "  FROM salario" +
+                  " WHERE dt_salario = (SELECT MAX(dt_salario)" +
+                  "                       FROM salario)";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlSalario = rs.getBigDecimal("nm_valor");   
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valor de salario minimo atual:\n" +
+                    ex.getMessage(), "Salario", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlSalario;
+    }  
 }

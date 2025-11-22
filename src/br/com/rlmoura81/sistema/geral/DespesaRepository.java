@@ -3,6 +3,7 @@ package br.com.rlmoura81.sistema.geral;
 import br.com.rlmoura81.sistema.principal.IPadraoRepository;
 import br.com.rlmoura81.sistema.principalinterface.JPLogin;
 import br.com.rlmoura81.sistema.utilidade.Utilidade;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -133,6 +134,23 @@ public class DespesaRepository implements IPadraoRepository{
                     ex.getMessage(), "Despesa", JOptionPane.ERROR_MESSAGE);
         }
         return c;
-    }  
+    } 
     
+    public BigDecimal valorTotalDespesa(){
+        BigDecimal vlTotal = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT SUM(nm_valor)" +
+                  "  FROM despesa";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlTotal = rs.getBigDecimal("SUM(nm_valor)");   
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valor total em despesa:\n" +
+                    ex.getMessage(), "Despesa", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlTotal;
+    }   
 }
