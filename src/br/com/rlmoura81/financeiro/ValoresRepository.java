@@ -131,7 +131,46 @@ public class ValoresRepository implements IPadraoRepository{
                     ex.getMessage(), "Valores", JOptionPane.ERROR_MESSAGE);
         }
         return v;
-    }   
+    }  
+
+    public BigDecimal valorHoraMeta() {
+        BigDecimal vlhorameta = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT MAX(vl_hora)" +
+                  "  FROM valores" +
+                  " WHERE cd_usuario = ?";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ps.setInt(1, JPLogin.codloginuser);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlhorameta = rs.getBigDecimal("MAX(vl_hora)");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valorHoraMeta em valores:\n" +
+                    ex.getMessage(), "Valores", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlhorameta;
+    }    
     
+        public BigDecimal valorSalarioMeta() {
+        BigDecimal vlhorameta = Utilidade.converter("0,00");
+        try{
+            sql = "SELECT MAX(vl_salario)" +
+                  "  FROM valores" +
+                  " WHERE cd_usuario = ?";
+            PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ps.setInt(1, JPLogin.codloginuser);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                vlhorameta = rs.getBigDecimal("MAX(vl_salario)");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de valorSalarioMeta em valores:\n" +
+                    ex.getMessage(), "Valores", JOptionPane.ERROR_MESSAGE);
+        }
+        return vlhorameta;
+    } 
     
 }

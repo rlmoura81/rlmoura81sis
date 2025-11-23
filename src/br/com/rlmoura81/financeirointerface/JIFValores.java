@@ -9,6 +9,7 @@ import br.com.rlmoura81.sistema.geral.SalarioRepository;
 import br.com.rlmoura81.sistema.geral.TrabalhoRepository;
 import br.com.rlmoura81.sistema.principalinterface.JPLogin;
 import br.com.rlmoura81.sistema.utilidade.Utilidade;
+import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
@@ -16,11 +17,11 @@ public class JIFValores extends javax.swing.JInternalFrame {
     
     private static JIFValores jifvalores;
     
-    public static JIFValores getInstancia(){
+    public static JIFValores getInstancia() throws PropertyVetoException{
         if (jifvalores == null){
             jifvalores = new JIFValores();
             jifvalores.setTitle("Valores");
-            jifvalores.setMaximizable(true);
+            jifvalores.setMaximum(true);
         } return jifvalores;
     }
     
@@ -621,6 +622,8 @@ public class JIFValores extends javax.swing.JInternalFrame {
 
     private void jFTFSalarioMetaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFSalarioMetaFocusGained
         jFTFSalarioMeta.setValue(null);
+        jFTFQtdeSalarioMin.setValue(null);
+        jFTFValorHora.setValue(null);
         util.posicionaCursojFTFValor(jFTFSalarioMeta);
     }//GEN-LAST:event_jFTFSalarioMetaFocusGained
 
@@ -633,11 +636,15 @@ public class JIFValores extends javax.swing.JInternalFrame {
 
     private void jFTFQtdeSalarioMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFQtdeSalarioMinFocusGained
         jFTFQtdeSalarioMin.setValue(null);
+        jFTFSalarioMeta.setValue(null);
+        jFTFValorHora.setValue(null);
         util.posicionaCursojFTFValor(jFTFQtdeSalarioMin);
     }//GEN-LAST:event_jFTFQtdeSalarioMinFocusGained
 
     private void jFTFValorHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorHoraFocusGained
         jFTFValorHora.setValue(null);
+        jFTFSalarioMeta.setValue(null);
+        jFTFQtdeSalarioMin.setValue(null);
         util.posicionaCursojFTFValor(jFTFValorHora);
     }//GEN-LAST:event_jFTFValorHoraFocusGained
 

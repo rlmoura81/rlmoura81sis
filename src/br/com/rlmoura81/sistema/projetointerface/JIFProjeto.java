@@ -14,16 +14,20 @@ import br.com.rlmoura81.sistema.projeto.StatusEtapa;
 import br.com.rlmoura81.sistema.projeto.StatusEtapaUtil;
 import br.com.rlmoura81.sistema.projeto.TipoEtapa;
 import br.com.rlmoura81.sistema.projeto.TipoEtapaUtil;
+import br.com.rlmoura81.sistema.utilidade.Utilidade;
+import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
 public class JIFProjeto extends javax.swing.JInternalFrame {
     
     private static JIFProjeto jifprojeto;
     
-    public static JIFProjeto getInstancia(){
+    public static JIFProjeto getInstancia() throws PropertyVetoException{
         if(jifprojeto == null){
             jifprojeto = new JIFProjeto();
             jifprojeto.setTitle("Projeto");
+            jifprojeto.setMaximum(true);
         }
         return jifprojeto;
     }
@@ -79,7 +83,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jLHorasModulo = new javax.swing.JLabel();
         jTFHora = new javax.swing.JTextField();
         jCBComplexidade = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        jLHorasComplexidade = new javax.swing.JLabel();
+        jTFHorasComplexidade = new javax.swing.JTextField();
         jPModuloGrid = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTModulo = new javax.swing.JTable();
@@ -237,8 +242,15 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jLHorasModulo.setText("Horas:");
 
         jCBComplexidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baixa", "Media", "Alta" }));
+        jCBComplexidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBComplexidadeActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Total Horas:");
+        jLHorasComplexidade.setText("Horas Complexidade:");
+
+        jTFHorasComplexidade.setEditable(false);
 
         javax.swing.GroupLayout jPModuloCamposLayout = new javax.swing.GroupLayout(jPModuloCampos);
         jPModuloCampos.setLayout(jPModuloCamposLayout);
@@ -261,8 +273,10 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCBComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                        .addComponent(jLHorasComplexidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFHorasComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPModuloCamposLayout.setVerticalGroup(
             jPModuloCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +292,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                     .addComponent(jLHorasModulo)
                     .addComponent(jTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLHorasComplexidade)
+                    .addComponent(jTFHorasComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -483,7 +498,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))
+                        .addComponent(jTPProjeto))
                     .addComponent(jPCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -512,6 +527,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFModulo.setText(null);
         jTFDescricaoModulo.setText(null);
         jTFHora.setText(null);
+        jCBComplexidade.setSelectedIndex(0);
+        jTFHorasComplexidade.setText(null);
     }
     
     private void limpaCampoEtapa(){
@@ -539,6 +556,27 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     
     private void jcStatusEtapa(){
         stetapau.jcStatusEtapa(jCBStatusEtapa);
+    }
+    
+    private BigDecimal horaComplexidade(BigDecimal hora){
+        BigDecimal porcentagem;
+        BigDecimal resultado = null;
+        if(modulo.getNm_complexidade() == 0){
+            resultado = hora;
+        }
+        if(modulo.getNm_complexidade() == 1){
+            porcentagem = Utilidade.converter("0,25");
+            resultado = (hora.multiply(porcentagem)).add(hora);
+        }
+        if(modulo.getNm_complexidade() == 2){
+            porcentagem = Utilidade.converter("0,50");
+            resultado = (hora.multiply(porcentagem)).add(hora);
+        }
+        return resultado;
+    } 
+    
+    private void executaHoraComplexidade(){
+        jTFHorasComplexidade.setText(Utilidade.formatoValor.format(horaComplexidade(modulo.getNm_hora())));
     }
     
     private boolean validaCampoProjeto(){
@@ -613,8 +651,9 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             modulo = new Modulo();
             modulo.setDs_modulo(jTFModulo.getText());
             modulo.setDs_descricao(jTFDescricaoModulo.getText());   
-            modulo.setNm_hora(Integer.parseInt(jTFHora.getText()));
+            modulo.setNm_hora(Utilidade.converter(jTFHora.getText()));
             modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
+            modulo.setNm_horacomplexidade(Utilidade.converter(jTFHorasComplexidade.getText()));
             modulo.setProjeto(projeto);
             modulo.setCd_usuario(JPLogin.codloginuser);
             modulor.inserir(modulo);
@@ -622,8 +661,9 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         }else{
             modulo.setDs_modulo(jTFModulo.getText());
             modulo.setDs_descricao(jTFDescricaoModulo.getText());   
-            modulo.setNm_hora(Integer.parseInt(jTFHora.getText()));
+            modulo.setNm_hora(Utilidade.converter(jTFHora.getText()));
             modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
+            modulo.setNm_horacomplexidade(Utilidade.converter(jTFHorasComplexidade.getText()));
             modulo.setProjeto(projeto);
             modulo.setCd_usuario(JPLogin.codloginuser);
             modulor.alterar(modulo);
@@ -693,13 +733,13 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         modulo = (Modulo)modulou.getSelectObject(jTModulo);
         jTFModulo.setText(modulo.getDs_modulo());
         jTFDescricaoModulo.setText(modulo.getDs_descricao());
-        jTFHora.setText(Integer.toString(modulo.getNm_hora()));
+        jTFHora.setText(Utilidade.formatoValor.format(modulo.getNm_hora()));
         jCBComplexidade.setSelectedIndex(modulo.getNm_complexidade());
+        jTFHorasComplexidade.setText(Utilidade.formatoValor.format(modulo.getNm_horacomplexidade()));
         tabelaEtapa();
         jTPProjeto.setEnabledAt(2, true);
         jcTipoEtapa();
         jcStatusEtapa();
-
     }//GEN-LAST:event_jTModuloMouseClicked
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
@@ -761,6 +801,13 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTADescricaoEtapa.setText(etapa.getDs_descricao());
     }//GEN-LAST:event_jTEtapaMouseClicked
 
+    private void jCBComplexidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBComplexidadeActionPerformed
+        if(!jTFHora.getText().isEmpty()){
+            modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
+            executaHoraComplexidade();   
+        }
+    }//GEN-LAST:event_jCBComplexidadeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBNovo;
@@ -770,13 +817,13 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<TipoEtapa> jCBTipoEtapa;
     private javax.swing.JLabel jDescricaoEtapa;
     private javax.swing.JLabel jLDescricaoModulo;
+    private javax.swing.JLabel jLHorasComplexidade;
     private javax.swing.JLabel jLHorasModulo;
     private javax.swing.JLabel jLModulo;
     private javax.swing.JLabel jLProjeto;
     private javax.swing.JLabel jLStatusEtapa;
     private javax.swing.JLabel jLTipoEtapa;
     private javax.swing.JLabel jLTituloEtapa;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPBotoes;
     private javax.swing.JPanel jPCampos;
     private javax.swing.JPanel jPEstapaCampos;
@@ -794,6 +841,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTEtapa;
     private javax.swing.JTextField jTFDescricaoModulo;
     private javax.swing.JTextField jTFHora;
+    private javax.swing.JTextField jTFHorasComplexidade;
     private javax.swing.JTextField jTFModulo;
     private javax.swing.JTextField jTFProjeto;
     private javax.swing.JTextField jTFTituloEtapa;

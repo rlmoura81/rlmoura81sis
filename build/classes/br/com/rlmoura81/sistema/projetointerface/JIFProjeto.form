@@ -33,7 +33,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPBotoes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTPProjeto" pref="863" max="32767" attributes="0"/>
+                      <Component id="jTPProjeto" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPCampos" max="32767" attributes="0"/>
               </Group>
@@ -285,10 +285,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jCBComplexidade" min="-2" pref="150" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLHorasComplexidade" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jTFHorasComplexidade" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="179" max="32767" attributes="0"/>
+                          <EmptySpace pref="74" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -307,7 +309,8 @@
                               <Component id="jLHorasModulo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTFHora" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jCBComplexidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLHorasComplexidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTFHorasComplexidade" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -346,13 +349,21 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCBComplexidadeActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel1">
+                <Component class="javax.swing.JLabel" name="jLHorasComplexidade">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Total Horas:"/>
+                    <Property name="text" type="java.lang.String" value="Horas Complexidade:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="jTFHorasComplexidade">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>

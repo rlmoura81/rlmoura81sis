@@ -1,12 +1,15 @@
 package br.com.rlmoura81.sistema.projeto;
 
+import java.math.BigDecimal;
+
 public class Modulo {
     
     private int cd_modulo;
     private String ds_modulo;
     private String ds_descricao;
-    private int nm_hora;
+    private BigDecimal nm_hora;
     private int nm_complexidade;
+    private BigDecimal nm_horacomplexidade;
     private Projeto projeto;
     private int cd_usuario;
 
@@ -34,11 +37,11 @@ public class Modulo {
         this.ds_descricao = ds_descricao;
     }
 
-    public int getNm_hora() {
+    public BigDecimal getNm_hora() {
         return nm_hora;
     }
 
-    public void setNm_hora(int nm_hora) {
+    public void setNm_hora(BigDecimal nm_hora) {
         this.nm_hora = nm_hora;
     }
 
@@ -48,6 +51,14 @@ public class Modulo {
 
     public void setNm_complexidade(int nm_complexidade) {
         this.nm_complexidade = nm_complexidade;
+    }
+
+    public BigDecimal getNm_horacomplexidade() {
+        return nm_horacomplexidade;
+    }
+
+    public void setNm_horacomplexidade(BigDecimal nm_horacomplexidade) {
+        this.nm_horacomplexidade = nm_horacomplexidade;
     }
 
     public Projeto getProjeto() {
@@ -66,19 +77,21 @@ public class Modulo {
         this.cd_usuario = cd_usuario;
     }
 
-    public Modulo(int cd_modulo, String ds_modulo, String ds_descricao, int nm_hora, int nm_complexidade, Projeto projeto, int cd_usuario) {
+    public Modulo(int cd_modulo, String ds_modulo, String ds_descricao, BigDecimal nm_hora, int nm_complexidade, BigDecimal nm_horacomplexidade, Projeto projeto, int cd_usuario) {
         this.cd_modulo = cd_modulo;
         this.ds_modulo = ds_modulo;
         this.ds_descricao = ds_descricao;
         this.nm_hora = nm_hora;
         this.nm_complexidade = nm_complexidade;
+        this.nm_horacomplexidade = nm_horacomplexidade;
         this.projeto = projeto;
         this.cd_usuario = cd_usuario;
-    }
+    }    
 
-    public Modulo(int cd_modulo, int nm_hora, Projeto projeto) {
+    public Modulo(int cd_modulo, BigDecimal nm_hora, BigDecimal nm_horacomplexidade, Projeto projeto) {
         this.cd_modulo = cd_modulo;
         this.nm_hora = nm_hora;
+        this.nm_horacomplexidade = nm_horacomplexidade;
         this.projeto = projeto;
     }
         
@@ -87,7 +100,8 @@ public class Modulo {
 
     @Override
     public String toString() {
-        return "Modulo{" + "cd_modulo=" + cd_modulo + ", ds_modulo=" + ds_modulo + ", ds_descricao=" + ds_descricao + ", nm_hora=" + nm_hora + ", nm_complexidade=" + nm_complexidade + ", projeto=" + projeto + ", cd_usuario=" + cd_usuario + '}';
+        return "Modulo{" + "cd_modulo=" + cd_modulo + ", ds_modulo=" + ds_modulo + ", ds_descricao=" + ds_descricao + ", nm_hora=" + nm_hora + ", nm_complexidade=" + nm_complexidade + ", nm_horacomplexidade=" + nm_horacomplexidade + ", projeto=" + projeto + ", cd_usuario=" + cd_usuario + '}';
     }
+
        
 }

@@ -45,5 +45,37 @@ public class FinanceiroCalculo {
             resultado = valorhora.multiply(qtdehora);
         }        
         return resultado;
-    }    
+    }   
+    
+    public BigDecimal custoHora(BigDecimal qtdehora, BigDecimal valorhora){
+        return valorhora.multiply(qtdehora);
+    }
+    
+    public BigDecimal custoTotal(BigDecimal customensal, BigDecimal custohora){
+        BigDecimal resultado = customensal.add(custohora);
+        return resultado;
+    }
+    
+    public BigDecimal calculoMensalidade(BigDecimal salario, BigDecimal valormensalidade, BigDecimal valormensalidadepercent){
+        BigDecimal resultado = null;
+        if(valormensalidade != null && valormensalidadepercent == null){
+            resultado = (valormensalidade.divide(salario, 3, RoundingMode.HALF_UP).multiply(Utilidade.converter("100,00")));
+        }
+        if(valormensalidade == null && valormensalidadepercent != null){
+            resultado = salario.multiply(valormensalidadepercent.divide(Utilidade.converter("100,00")));
+        }
+        return resultado;
+    }
+    
+    public BigDecimal custoTotalMensalidade(BigDecimal custototal, BigDecimal valormensalidade){
+        return custototal.divide(valormensalidade, 2, RoundingMode.HALF_UP);
+    }
+    
+    public BigDecimal custoHoraMensalidade(BigDecimal custohora, BigDecimal valormensalidade){
+        return custohora.divide(valormensalidade, 2, RoundingMode.HALF_UP);
+    }
+    
+        public BigDecimal qtdeSalario(BigDecimal salario, BigDecimal valormensalidade){
+            return salario.divide(valormensalidade, 2, RoundingMode.HALF_UP);
+    }
 }
