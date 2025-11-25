@@ -5,6 +5,7 @@ import br.com.rlmoura81.sistema.geralinterface.JIFCadastroGeral;
 import br.com.rlmoura81.sistema.geralinterface.JIFGrupo;
 import br.com.rlmoura81.sistema.projetointerface.JIFProjeto;
 import br.com.rlmoura81.financeirointerface.JIFValoresProjeto;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -263,7 +264,11 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMSobreMouseClicked
 
     private void jMIProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIProjetoActionPerformed
-        gerenciainterface.abrirInterface(JIFProjeto.getInstancia());
+        try {
+            gerenciainterface.abrirInterface(JIFProjeto.getInstancia());
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMIProjetoActionPerformed
 
     private void jMICursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICursosActionPerformed
@@ -291,11 +296,19 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIGrupoActionPerformed
 
     private void jMIValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIValoresActionPerformed
-        gerenciainterface.abrirInterface(JIFValores.getInstancia());
+        try {
+            gerenciainterface.abrirInterface(JIFValores.getInstancia());
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMIValoresActionPerformed
 
     private void jMIValoresProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIValoresProjetosActionPerformed
-        gerenciainterface.abrirInterface(JIFValoresProjeto.getInstancia());
+        try {
+            gerenciainterface.abrirInterface(JIFValoresProjeto.getInstancia());
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMIValoresProjetosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

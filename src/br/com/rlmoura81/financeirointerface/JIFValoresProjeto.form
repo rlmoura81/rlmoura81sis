@@ -183,7 +183,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLCustoTotal" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jFTFTotalValores" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -358,9 +358,6 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFTFQtdeSalarioMinActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLQtdeSalarioMeta">
           <Properties>
@@ -421,14 +418,14 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTProjeto">
+            <Component class="javax.swing.JTable" name="jTValorProjeto">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTProjetoMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTValorProjetoMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
@@ -481,6 +478,7 @@
         <Component class="javax.swing.JFormattedTextField" name="jFTFMensalidadeValorCalc">
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFMensalidadeValorCalcFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFMensalidadeValorCalcFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFTFMensalidadePorcentCalc">
@@ -537,6 +535,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBSalvarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

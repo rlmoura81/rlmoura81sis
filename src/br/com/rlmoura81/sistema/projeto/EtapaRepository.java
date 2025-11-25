@@ -70,9 +70,9 @@ public class EtapaRepository implements IPadraoRepository{
         Etapa e = (Etapa) o;
         try{
             sql = "DELETE FROM etapa " +
-                  " WHERE cd_etapa = ?, " +
-                  "   AND cd_modulo = ?, " +
-                  "   AND cd_usuario = ?)";
+                  " WHERE cd_etapa = ? " +
+                  "   AND cd_modulo = ? " +
+                  "   AND cd_usuario = ?";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
             ps.setInt(1, e.getCd_etapa());
             ps.setInt(2, e.getModulo().getCd_modulo());

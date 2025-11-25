@@ -12,7 +12,7 @@ public class ModuloRepository implements IPadraoRepository{
 
     String sql = "";
     
-    ProjetoRepository pr = new ProjetoRepository();
+    ProjetoRepository projetor = new ProjetoRepository();
         
     @Override
     public void inserir(Object o) {
@@ -46,19 +46,19 @@ public class ModuloRepository implements IPadraoRepository{
                   "       ds_descricao = ?," +
                   "       nm_hora = ?," +
                   "       nm_complexidade = ?," +  
-                  "       nm_horacomplexidade = ?," +  
-                  "       cd_usuario = ?" +
+                  "       nm_horacomplexidade = ?" +  
                   " WHERE cd_modulo = ?" +
-                  "   AND cd_projeto = ?";
+                  "   AND cd_projeto = ?"+
+                  "   AND cd_usuario = ?";
                   PreparedStatement ps = JPLogin.con.prepareStatement(sql);
                   ps.setString(1, m.getDs_modulo());
                   ps.setString(2, m.getDs_descricao());
                   ps.setBigDecimal(3, m.getNm_hora());
                   ps.setInt(4, m.getNm_complexidade());
                   ps.setBigDecimal(5, m.getNm_horacomplexidade());
-                  ps.setInt(6, m.getCd_usuario());
-                  ps.setInt(7, m.getCd_modulo());
-                  ps.setInt(8, m.getProjeto().getCd_projeto());
+                  ps.setInt(6, m.getCd_modulo());
+                  ps.setInt(7, m.getProjeto().getCd_projeto());
+                  ps.setInt(8, m.getCd_usuario());
                   ps.execute();
                   ps.close();
                   JOptionPane.showMessageDialog(null, "Salvo.", "Módulo", JOptionPane.INFORMATION_MESSAGE);
@@ -113,7 +113,7 @@ public class ModuloRepository implements IPadraoRepository{
                     rs.getBigDecimal("nm_hora"),
                     rs.getInt("nm_complexidade"),
                     rs.getBigDecimal("nm_horacomplexidade"),
-                    (Projeto)pr.getById(rs.getInt("cd_projeto")),
+                    (Projeto)projetor.getById(rs.getInt("cd_projeto")),
                     rs.getInt("cd_usuario"));
                     modulo.add(m);
             }
@@ -128,17 +128,23 @@ public class ModuloRepository implements IPadraoRepository{
     public ArrayList getListaProjetoModulo() {
         ArrayList modulo = new ArrayList();
         try{
-            sql = "SELECT COUNT(cd_modulo), SUM(nm_hora), SUM(nm_horacomplexidade), cd_projeto" +
-                  "  FROM modulo" + 
-                  " GROUP BY cd_projeto";
+            sql = "SELECT COUNT(m.cd_modulo) AS qtdemodulo, SUM(m.nm_hora) AS totalhora, SUM(m.nm_horacomplexidade) AS totalhoracomplexidade, m.cd_projeto AS cdprojeto, m.cd_usuario AS cdusuario" +
+                  "  FROM modulo m, projeto p" + 
+                  " WHERE m.cd_projeto = p.cd_projeto" +
+                  "   AND m.cd_usuario = p.cd_usuario" +
+                  "   AND m.cd_usuario = ?" +  
+                  " GROUP BY m.cd_projeto, m.cd_usuario, p.ds_projeto" +
+                  " ORDER BY p.ds_projeto";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ps.setInt(1, JPLogin.codloginuser);
             ResultSet rs = ps.executeQuery();            
             while(rs.next()){
                 Modulo m = new Modulo(
-                    rs.getInt("COUNT(cd_modulo)"),
-                    rs.getBigDecimal("SUM(nm_hora)"),
-                    rs.getBigDecimal("SUM(nm_horacomplexidade)"),
-                    (Projeto)pr.getById(rs.getInt("cd_projeto")));
+                    rs.getInt("qtdemodulo"),
+                    rs.getBigDecimal("totalhora"),
+                    rs.getBigDecimal("totalhoracomplexidade"),
+                    (Projeto)projetor.getById(rs.getInt("cdprojeto")),
+                    rs.getInt("cdusuario"));
                     modulo.add(m);
             }
             ps.close();
@@ -167,7 +173,7 @@ public class ModuloRepository implements IPadraoRepository{
                     rs.getBigDecimal("nm_hora"),
                     rs.getInt("nm_complexidade"),
                     rs.getBigDecimal("nm_horacomplexidade"),
-                    (Projeto)pr.getById(rs.getInt("cd_projeto")),
+                    (Projeto)projetor.getById(rs.getInt("cd_projeto")),
                     rs.getInt("cd_usuario"));
             }
             ps.close();

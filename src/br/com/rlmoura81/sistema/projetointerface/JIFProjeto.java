@@ -664,7 +664,6 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             modulo.setNm_hora(Utilidade.converter(jTFHora.getText()));
             modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
             modulo.setNm_horacomplexidade(Utilidade.converter(jTFHorasComplexidade.getText()));
-            modulo.setProjeto(projeto);
             modulo.setCd_usuario(JPLogin.codloginuser);
             modulor.alterar(modulo);
             modulo = null;
@@ -745,6 +744,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         if(jTPProjeto.getSelectedIndex() == 0){
             if((Projeto)projetou.getSelectObject(jTProjeto) != null){
+                projetor.excluirProjetoModulos(projeto);
                 projetor.excluir(projeto);
                 limpaCampo();
                 tabelaProjeto();
@@ -760,9 +760,9 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         
         if(jTPProjeto.getSelectedIndex() == 2){
             if((Etapa)etapau.getSelectObject(jTEtapa) != null){
-                modulor.excluir(modulo);
-                limpaCampoModulo();
-                modulou.tabelaModulo(jTModulo, projeto.getCd_projeto());
+                etapar.excluir(etapa);
+                limpaCampoEtapa();
+                etapau.tabelaEtapa(jTEtapa, etapa.getModulo().getCd_modulo());
             }
         }
         jBNovo.setEnabled(false);
@@ -795,6 +795,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
     private void jTEtapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEtapaMouseClicked
         etapa = (Etapa)etapau.getSelectObject(jTEtapa);
+        etapa.setModulo(modulo);
         jCBTipoEtapa.getModel().setSelectedItem(etapa.getTipoetapa());
         jCBStatusEtapa.getModel().setSelectedItem(etapa.getStatusetapa());
         jTFTituloEtapa.setText(etapa.getDs_etapa());

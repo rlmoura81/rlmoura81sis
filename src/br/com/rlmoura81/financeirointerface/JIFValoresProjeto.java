@@ -1,11 +1,17 @@
 package br.com.rlmoura81.financeirointerface;
 
 import br.com.rlmoura81.financeiro.FinanceiroCalculo;
+import br.com.rlmoura81.financeiro.ValoresProjetos;
+import br.com.rlmoura81.financeiro.ValoresProjetosRepository;
+import br.com.rlmoura81.financeiro.ValoresProjetosUtil;
 import br.com.rlmoura81.financeiro.ValoresRepository;
 import br.com.rlmoura81.sistema.geral.DespesaRepository;
 import br.com.rlmoura81.sistema.geral.SalarioRepository;
+import br.com.rlmoura81.sistema.principalinterface.JPLogin;
 import br.com.rlmoura81.sistema.projeto.Modulo;
 import br.com.rlmoura81.sistema.projeto.ModuloUtil;
+import br.com.rlmoura81.sistema.projeto.Projeto;
+import br.com.rlmoura81.sistema.projeto.ProjetoRepository;
 import br.com.rlmoura81.sistema.utilidade.Utilidade;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
@@ -27,7 +33,6 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     private BigDecimal valorhora;
     private BigDecimal custodespesa;
     private BigDecimal custohora;
-    private BigDecimal custohoracomplexidade;
     private BigDecimal custototal;
     private BigDecimal salariomin;
     private BigDecimal salariometa;
@@ -38,14 +43,16 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     private BigDecimal qtdesalariominmo;
     private BigDecimal qtdesalariometa;
     
+    ValoresProjetos valorprojeto = null;
+    ValoresProjetosRepository valorprojetor = new ValoresProjetosRepository();
+    ValoresProjetosUtil valorprojetou = new ValoresProjetosUtil();    
     ValoresRepository valoresr = new ValoresRepository();
-    
+    Projeto projeto = new Projeto();
+    ProjetoRepository projetor = new ProjetoRepository();
     Modulo modulo = null;
-    ModuloUtil modelou = new ModuloUtil();
-    
+    ModuloUtil modelou = new ModuloUtil(); 
     DespesaRepository despesar = new DespesaRepository();
-    SalarioRepository salarior = new SalarioRepository();
-    
+    SalarioRepository salarior = new SalarioRepository();    
     FinanceiroCalculo fc = new FinanceiroCalculo();
     Utilidade util = new Utilidade();
 
@@ -96,7 +103,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jFTFQtdeSalarioTotal = new javax.swing.JFormattedTextField();
         jPValoresProjetos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProjeto = new javax.swing.JTable();
+        jTValorProjeto = new javax.swing.JTable();
         jPCampos = new javax.swing.JPanel();
         jLMensalidadeValorCalc = new javax.swing.JLabel();
         jFTFMensalidadeValorCalc = new javax.swing.JFormattedTextField();
@@ -219,11 +226,6 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jLQtdeSalarioMin.setText("Qtde Salario Min:");
 
         jFTFQtdeSalarioMin.setEditable(false);
-        jFTFQtdeSalarioMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFTFQtdeSalarioMinActionPerformed(evt);
-            }
-        });
 
         jLQtdeSalarioMeta.setText("Qtde Salario Meta:");
 
@@ -252,7 +254,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
                                 .addComponent(jFTFValorHora, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPValoresLayout.createSequentialGroup()
                                 .addComponent(jLCustoTotal)
-                                .addGap(51, 51, 51)
+                                .addGap(18, 18, 18)
                                 .addComponent(jFTFTotalValores, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +327,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
 
         jPValoresProjetos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTProjeto.setModel(new javax.swing.table.DefaultTableModel(
+        jTValorProjeto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -336,12 +338,12 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTProjeto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTValorProjeto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProjetoMouseClicked(evt);
+                jTValorProjetoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTProjeto);
+        jScrollPane1.setViewportView(jTValorProjeto);
 
         javax.swing.GroupLayout jPValoresProjetosLayout = new javax.swing.GroupLayout(jPValoresProjetos);
         jPValoresProjetos.setLayout(jPValoresProjetosLayout);
@@ -367,6 +369,9 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jFTFMensalidadeValorCalc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jFTFMensalidadeValorCalcFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFTFMensalidadeValorCalcFocusLost(evt);
             }
         });
 
@@ -410,6 +415,11 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         });
 
         jBSalvar.setText("Salvar");
+        jBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPBotoesLayout = new javax.swing.GroupLayout(jPBotoes);
         jPBotoes.setLayout(jPBotoesLayout);
@@ -469,15 +479,18 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jFTFCustoMensal.setFormatterFactory(Utilidade.formataValorCampo(jFTFCustoMensal));
         jFTFCustoHora.setFormatterFactory(Utilidade.formataValorCampo(jFTFCustoHora));
         jFTFTotalValores.setFormatterFactory(Utilidade.formataValorCampo(jFTFTotalValores));
-        jFTFMensalidadeValorCalc.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadeValorCalc));
-        jFTFMensalidadePorcentCalc.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadePorcentCalc));
+        jFTFMensalidadeValor.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadeValor));
+        jFTFMensalidadePorcent.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadePorcent));
         jFTFQtdeSalarioMin.setFormatterFactory(Utilidade.formataValorCampo(jFTFQtdeSalarioMin));
         jFTFQtdeSalarioMeta.setFormatterFactory(Utilidade.formataValorCampo(jFTFQtdeSalarioMeta));
         jFTFQtdeSalarioTotal.setFormatterFactory(Utilidade.formataValorCampo(jFTFQtdeSalarioTotal));
+        jFTFMensalidadeValorCalc.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadeValorCalc));
+        jFTFMensalidadePorcentCalc.setFormatterFactory(Utilidade.formataValorCampo(jFTFMensalidadePorcentCalc));
     }
     
     private void tabelaProjetosValores(){
-        modelou.tabelaModulo(jTProjeto);
+        //valorprojetou.tabelaValorProjetoTotal(jTValorProjeto);
+        modelou.tabelaModulo(jTValorProjeto);
     }
     
     private void valorTotalDespesa(){
@@ -500,9 +513,21 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jFTFTotalValores.setText(Utilidade.formatoValor.format(custototal));
     }
     
-    private boolean validarCampos(){
+    private boolean validarCalculoProjeto(){
         if(modulo == null){
             JOptionPane.showMessageDialog(null, "Selecione o projeto.");
+            return false;
+        }
+        if(jFTFMensalidadeValorCalc.getText().isEmpty() && jFTFMensalidadePorcentCalc.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo em branco.");
+        return false;
+        }
+        return true;
+    }
+    
+    private boolean  validarCamposSalvar(){
+        if(jFTFMensalidadeValorCalc.getText().isEmpty() || jFTFMensalidadePorcentCalc.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Calcule o valor da mensalidade.");
             return false;
         }
         return true;
@@ -532,13 +557,13 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     }
 
     private void calcularCustoHoraMensalidade(){
-        valormensalidade = Utilidade.converter(jFTFMensalidadeValor.getText());
+        valormensalidade = Utilidade.converter(jFTFMensalidadeValorCalc.getText());
         custohoramensalidade = fc.custoTotalMensalidade(custohora, valormensalidade);
         jFTFCustoHoraMensalidade.setText(Utilidade.formatoValor.format(custohoramensalidade));
     }
     
     private void calcularCustoTotalMensalidade(){
-        valormensalidade = Utilidade.converter(jFTFMensalidadeValor.getText());
+        valormensalidade = Utilidade.converter(jFTFMensalidadeValorCalc.getText());
         custototalmensalidade = fc.custoTotalMensalidade(custototal, valormensalidade);
         jFTFCustoTotalMensalidade.setText(Utilidade.formatoValor.format(custototalmensalidade));
     }
@@ -551,20 +576,54 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jFTFQtdeSalarioTotal.setText(Utilidade.formatoValor.format(qtdesalariometa.add(custodespesa.divide(valormensalidade, 2, RoundingMode.HALF_UP))));
     }
     
+    private void salvar(){
+        if(valorprojeto == null){
+            valorprojeto = new ValoresProjetos();
+            valorprojeto.setVl_mensalidade(Utilidade.converter(jFTFMensalidadeValorCalc.getText()));
+            valorprojeto.setVl_mensalidadeporcent(Utilidade.converter(jFTFMensalidadePorcentCalc.getText()));
+            valorprojeto.setProjeto(projeto);
+            valorprojeto.setCd_usuario(JPLogin.codloginuser);
+            valorprojetor.inserir(valorprojeto);
+            valorprojeto = null;
+        }else{
+            valorprojeto.setVl_mensalidade(Utilidade.converter(jFTFMensalidadeValorCalc.getText()));
+            valorprojeto.setVl_mensalidadeporcent(Utilidade.converter(jFTFMensalidadePorcentCalc.getText()));
+            valorprojeto.setProjeto(projeto);
+            valorprojeto.setCd_usuario(JPLogin.codloginuser);
+            valorprojetor.alterar(valorprojeto);
+            valorprojeto = null;
+        }
+    }
+    
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         jifvaloresprojeto = null;
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jTProjetoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProjetoMouseClicked
-        modulo = (Modulo)modelou.getSelectObject(jTProjeto);
+    private void jTValorProjetoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTValorProjetoMouseClicked
+        modulo = (Modulo)modelou.getSelectObject(jTValorProjeto);
         jTFProjeto.setText(modulo.getProjeto().getDs_projeto());
         jTFModulos.setText(Integer.toString(modulo.getCd_modulo()));
         jTFHora.setText(Utilidade.formatoValor.format(modulo.getNm_hora()));
         jTFHoraTotal.setText(Utilidade.formatoValor.format(modulo.getNm_horacomplexidade()));
         custohora = fc.custoHora(modulo.getNm_horacomplexidade(), valorhora);
         jFTFCustoHora.setText(Utilidade.formatoValor.format(custohora));
+        projeto = (Projeto)projetor.getById(modulo.getProjeto().getCd_projeto());        
+        valorprojeto = (ValoresProjetos) valorprojetor.getById(projeto.getCd_projeto());
+        if(valorprojeto != null){
+            jFTFMensalidadeValorCalc.setText(Utilidade.formatoValor.format(valorprojeto.getVl_mensalidade()));
+            jFTFMensalidadePorcentCalc.setText(Utilidade.formatoValor.format(valorprojeto.getVl_mensalidadeporcent()));        
+            jFTFMensalidadeValor.setText(Utilidade.formatoValor.format(valorprojeto.getVl_mensalidade()));
+            valormensalidade = valorprojeto.getVl_mensalidade();
+            jFTFMensalidadePorcent.setText(Utilidade.formatoValor.format(valorprojeto.getVl_mensalidadeporcent())); 
+            valormensalidadeporcent = valorprojeto.getVl_mensalidadeporcent();
+        }else{
+            jFTFMensalidadeValor.setValue(null);
+            jFTFMensalidadePorcent.setValue(null);
+            jFTFMensalidadeValorCalc.setValue(null);
+            jFTFMensalidadePorcentCalc.setValue(null);                
+        }
         custoTotal();
-    }//GEN-LAST:event_jTProjetoMouseClicked
+    }//GEN-LAST:event_jTValorProjetoMouseClicked
 
     private void jFTFMensalidadeValorCalcFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFMensalidadeValorCalcFocusGained
         jFTFMensalidadeValorCalc.setValue(null);
@@ -579,7 +638,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jFTFMensalidadePorcentCalcFocusGained
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-        if(validarCampos()){
+        if(validarCalculoProjeto()){
             calcularMensalidade();  
             calcularCustoHoraMensalidade();
             calcularCustoTotalMensalidade(); 
@@ -587,9 +646,15 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         }        
     }//GEN-LAST:event_jBCalcularActionPerformed
 
-    private void jFTFQtdeSalarioMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFQtdeSalarioMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFTFQtdeSalarioMinActionPerformed
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        if(validarCamposSalvar()){
+            salvar();
+        }
+    }//GEN-LAST:event_jBSalvarActionPerformed
+
+    private void jFTFMensalidadeValorCalcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFMensalidadeValorCalcFocusLost
+        
+    }//GEN-LAST:event_jFTFMensalidadeValorCalcFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCalcular;
@@ -632,6 +697,6 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFHoraTotal;
     private javax.swing.JTextField jTFModulos;
     private javax.swing.JTextField jTFProjeto;
-    private javax.swing.JTable jTProjeto;
+    private javax.swing.JTable jTValorProjeto;
     // End of variables declaration//GEN-END:variables
 }

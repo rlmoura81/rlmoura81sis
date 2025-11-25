@@ -88,11 +88,12 @@ public class Modulo {
         this.cd_usuario = cd_usuario;
     }    
 
-    public Modulo(int cd_modulo, BigDecimal nm_hora, BigDecimal nm_horacomplexidade, Projeto projeto) {
+    public Modulo(int cd_modulo, BigDecimal nm_hora, BigDecimal nm_horacomplexidade, Projeto projeto, int cd_usuario) {
         this.cd_modulo = cd_modulo;
         this.nm_hora = nm_hora;
         this.nm_horacomplexidade = nm_horacomplexidade;
         this.projeto = projeto;
+        this.cd_usuario = cd_usuario;
     }
         
     public Modulo() {
