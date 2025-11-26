@@ -19,7 +19,7 @@ public class ModuloRepository implements IPadraoRepository{
         Modulo m = (Modulo) o;
         try{                       
             sql = "INSERT INTO modulo (cd_modulo, ds_modulo, ds_descricao, nm_hora, nm_complexidade, nm_horacomplexidade, cd_projeto, cd_usuario)" +
-                  "     VALUES (sq_modulo.nextval, ?, ?, ?, ?, ?)";
+                  "     VALUES (sq_modulo.nextval, ?, ?, ?, ?, ?, ?, ?)";
                   PreparedStatement ps = JPLogin.con.prepareStatement(sql);
                   ps.setString(1, m.getDs_modulo());
                   ps.setString(2, m.getDs_descricao());

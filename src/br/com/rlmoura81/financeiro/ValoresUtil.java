@@ -12,7 +12,7 @@ public class ValoresUtil {
     ValoresRepository valoresr = new ValoresRepository();
     ArrayList lista = new ArrayList();
         
-    public void tabelaCurso(JTable o){
+    public void tabelaValores(JTable o){
         String []nomeColuna = {"Qtde Salario", "Salario Meta", "Valor Hora"};
         lista = valoresr.getLista();
         Object[][]dadosArray = new Object[lista.size()][nomeColuna.length];

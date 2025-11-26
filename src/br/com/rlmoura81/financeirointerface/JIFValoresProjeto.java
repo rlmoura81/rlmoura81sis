@@ -628,13 +628,13 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     private void jFTFMensalidadeValorCalcFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFMensalidadeValorCalcFocusGained
         jFTFMensalidadeValorCalc.setValue(null);
         jFTFMensalidadePorcentCalc.setValue(null);
-        util.posicionaCursojFTFValor(jFTFMensalidadeValorCalc);
+        util.posicionaCursorjFTFValor(jFTFMensalidadeValorCalc);
     }//GEN-LAST:event_jFTFMensalidadeValorCalcFocusGained
 
     private void jFTFMensalidadePorcentCalcFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFMensalidadePorcentCalcFocusGained
         jFTFMensalidadePorcentCalc.setValue(null);
         jFTFMensalidadeValorCalc.setValue(null);
-        util.posicionaCursojFTFValor(jFTFMensalidadePorcentCalc);
+        util.posicionaCursorjFTFValor(jFTFMensalidadePorcentCalc);
     }//GEN-LAST:event_jFTFMensalidadePorcentCalcFocusGained
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed

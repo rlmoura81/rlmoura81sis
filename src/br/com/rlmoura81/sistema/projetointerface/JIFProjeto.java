@@ -31,6 +31,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         }
         return jifprojeto;
     }
+    
+    private int jcbcomplexidade;
         
     Projeto projeto = null;
     ProjetoRepository projetor = new ProjetoRepository();
@@ -54,8 +56,6 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         initComponents();
         
         jBNovo.setEnabled(false);
-        jTPProjeto.setEnabledAt(1, false);
-        jTPProjeto.setEnabledAt(2, false);
         tabelaProjeto();        
     }
 
@@ -67,6 +67,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jLProjeto = new javax.swing.JLabel();
         jTFProjeto = new javax.swing.JTextField();
         jBNovo = new javax.swing.JButton();
+        jLProjetoSelecionado = new javax.swing.JLabel();
         jPBotoes = new javax.swing.JPanel();
         jBSalvar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -135,6 +136,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             }
         });
 
+        jLProjetoSelecionado.setText("Projeto:");
+
         javax.swing.GroupLayout jPCamposLayout = new javax.swing.GroupLayout(jPCampos);
         jPCampos.setLayout(jPCamposLayout);
         jPCamposLayout.setHorizontalGroup(
@@ -146,6 +149,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                 .addComponent(jTFProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBNovo)
+                .addGap(18, 18, 18)
+                .addComponent(jLProjetoSelecionado)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCamposLayout.setVerticalGroup(
@@ -155,7 +160,8 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
                 .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLProjeto)
                     .addComponent(jTFProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBNovo))
+                    .addComponent(jBNovo)
+                    .addComponent(jLProjetoSelecionado))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -198,6 +204,12 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
         jTPProjeto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jPProjeto.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPProjetoComponentShown(evt);
+            }
+        });
+
         jTProjeto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -235,11 +247,23 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
         jTPProjeto.addTab("Projetos", jPProjeto);
 
+        jPModulo.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPModuloComponentShown(evt);
+            }
+        });
+
         jLModulo.setText("Módulo:");
 
         jLDescricaoModulo.setText("Descrição:");
 
         jLHorasModulo.setText("Horas:");
+
+        jTFHora.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFHoraFocusLost(evt);
+            }
+        });
 
         jCBComplexidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baixa", "Media", "Alta" }));
         jCBComplexidade.addActionListener(new java.awt.event.ActionListener() {
@@ -354,6 +378,12 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         );
 
         jTPProjeto.addTab("Modulos", jPModulo);
+
+        jPEtapa.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPEtapaComponentShown(evt);
+            }
+        });
 
         jPEstapaCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -516,10 +546,10 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void limpaCampo(){
+    
+    private void limpaCampoProjeto(){
+        jLProjetoSelecionado.setText("Projeto:");
         jTFProjeto.setText(null);
-        projeto.setCd_projeto(0);
         jTPProjeto.setEnabledAt(1, false);
     }
     
@@ -561,14 +591,14 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private BigDecimal horaComplexidade(BigDecimal hora){
         BigDecimal porcentagem;
         BigDecimal resultado = null;
-        if(modulo.getNm_complexidade() == 0){
+        if(jcbcomplexidade == 0){
             resultado = hora;
         }
-        if(modulo.getNm_complexidade() == 1){
+        if(jcbcomplexidade == 1){
             porcentagem = Utilidade.converter("0,25");
             resultado = (hora.multiply(porcentagem)).add(hora);
         }
-        if(modulo.getNm_complexidade() == 2){
+        if(jcbcomplexidade == 2){
             porcentagem = Utilidade.converter("0,50");
             resultado = (hora.multiply(porcentagem)).add(hora);
         }
@@ -576,7 +606,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     } 
     
     private void executaHoraComplexidade(){
-        jTFHorasComplexidade.setText(Utilidade.formatoValor.format(horaComplexidade(modulo.getNm_hora())));
+        jTFHorasComplexidade.setText(Utilidade.formatoValor.format(horaComplexidade(Utilidade.converter(jTFHora.getText()))));
     }
     
     private boolean validaCampoProjeto(){
@@ -696,7 +726,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         if(jTPProjeto.getSelectedIndex() == 0){
             if(validaCampoProjeto()){
                 projetoSalvar();
-                limpaCampo();
+                limpaCampoProjeto();
                 tabelaProjeto();               
             }        
         }
@@ -723,6 +753,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private void jTProjetoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProjetoMouseClicked
         projeto = (Projeto)projetou.getSelectObject(jTProjeto);
         jTFProjeto.setText(projeto.getDs_projeto());
+        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto());
         tabelaModulo();
         jTPProjeto.setEnabledAt(1, true);
         jBNovo.setEnabled(true);
@@ -735,6 +766,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFHora.setText(Utilidade.formatoValor.format(modulo.getNm_hora()));
         jCBComplexidade.setSelectedIndex(modulo.getNm_complexidade());
         jTFHorasComplexidade.setText(Utilidade.formatoValor.format(modulo.getNm_horacomplexidade()));
+        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_descricao());
         tabelaEtapa();
         jTPProjeto.setEnabledAt(2, true);
         jcTipoEtapa();
@@ -746,7 +778,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
             if((Projeto)projetou.getSelectObject(jTProjeto) != null){
                 projetor.excluirProjetoModulos(projeto);
                 projetor.excluir(projeto);
-                limpaCampo();
+                limpaCampoProjeto();
                 tabelaProjeto();
             }
         }
@@ -769,7 +801,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
-        limpaCampo();
+        limpaCampoProjeto();
         limpaCampoModulo();
         jBNovo.setEnabled(false);
     }//GEN-LAST:event_jBNovoActionPerformed
@@ -800,14 +832,47 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jCBStatusEtapa.getModel().setSelectedItem(etapa.getStatusetapa());
         jTFTituloEtapa.setText(etapa.getDs_etapa());
         jTADescricaoEtapa.setText(etapa.getDs_descricao());
+        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_descricao() + " Etapa: " + etapa.getDs_etapa());
     }//GEN-LAST:event_jTEtapaMouseClicked
 
     private void jCBComplexidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBComplexidadeActionPerformed
-        if(!jTFHora.getText().isEmpty()){
-            modulo.setNm_complexidade(jCBComplexidade.getSelectedIndex());
+        jcbcomplexidade = jCBComplexidade.getSelectedIndex();
+        if(!jTFHora.getText().isEmpty()){            
             executaHoraComplexidade();   
         }
     }//GEN-LAST:event_jCBComplexidadeActionPerformed
+
+    private void jTFHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFHoraFocusLost
+        if(!jTFHora.getText().isEmpty()){
+            executaHoraComplexidade();   
+        }
+    }//GEN-LAST:event_jTFHoraFocusLost
+
+    private void jPProjetoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPProjetoComponentShown
+        System.out.println("--Projeto");
+        jTPProjeto.setEnabledAt(1, false);
+        jTPProjeto.setEnabledAt(2, false);
+        if(jTPProjeto.isEnabledAt(1)== false && jTPProjeto.isEnabledAt(2) == false){
+            limpaCampoModulo();
+            System.out.println("Modulo e etapa false");
+        }
+    }//GEN-LAST:event_jPProjetoComponentShown
+
+    private void jPModuloComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPModuloComponentShown
+        System.out.println("--Modulo");
+        jTPProjeto.setEnabledAt(2, false);
+        if(jTPProjeto.isEnabledAt(0)== true && jTPProjeto.isEnabledAt(2) == false){
+            limpaCampoEtapa();
+            System.out.println("Projeto true e etapa false");
+        }
+    }//GEN-LAST:event_jPModuloComponentShown
+
+    private void jPEtapaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPEtapaComponentShown
+        System.out.println("--Etapa");
+        if(jTPProjeto.isEnabledAt(0)== true && jTPProjeto.isEnabledAt(1) == true){
+            System.out.println("Projeto true, modulo true e etapa true");
+        }        
+    }//GEN-LAST:event_jPEtapaComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;
@@ -822,6 +887,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLHorasModulo;
     private javax.swing.JLabel jLModulo;
     private javax.swing.JLabel jLProjeto;
+    private javax.swing.JLabel jLProjetoSelecionado;
     private javax.swing.JLabel jLStatusEtapa;
     private javax.swing.JLabel jLTipoEtapa;
     private javax.swing.JLabel jLTituloEtapa;

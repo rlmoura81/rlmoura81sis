@@ -339,7 +339,19 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
 
         jLData.setText("Data:");
 
+        jFTFData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFTFDataFocusGained(evt);
+            }
+        });
+
         jLValor.setText("Valor:");
+
+        jFTFValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFTFValorFocusGained(evt);
+            }
+        });
 
         jLHoras.setText("Horas:");
 
@@ -583,6 +595,14 @@ public class JIFCadastroGeral extends javax.swing.JInternalFrame {
             jTFHora.requestFocus();
         }
     }//GEN-LAST:event_jTFHoraFocusLost
+
+    private void jFTFValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorFocusGained
+        util.posicionaCursorjFTFValor(jFTFValor);
+    }//GEN-LAST:event_jFTFValorFocusGained
+
+    private void jFTFDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFDataFocusGained
+        util.posicionaCursorjFTFData(jFTFData);
+    }//GEN-LAST:event_jFTFDataFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

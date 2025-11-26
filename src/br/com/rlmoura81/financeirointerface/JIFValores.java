@@ -579,7 +579,7 @@ public class JIFValores extends javax.swing.JInternalFrame {
     }
     
     private void tabelaValores(){
-        valoresu.tabelaCurso(jTValores);
+        valoresu.tabelaValores(jTValores);
     }
     
     private boolean validaCampos(){
@@ -624,7 +624,7 @@ public class JIFValores extends javax.swing.JInternalFrame {
         jFTFSalarioMeta.setValue(null);
         jFTFQtdeSalarioMin.setValue(null);
         jFTFValorHora.setValue(null);
-        util.posicionaCursojFTFValor(jFTFSalarioMeta);
+        util.posicionaCursorjFTFValor(jFTFSalarioMeta);
     }//GEN-LAST:event_jFTFSalarioMetaFocusGained
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
@@ -638,14 +638,14 @@ public class JIFValores extends javax.swing.JInternalFrame {
         jFTFQtdeSalarioMin.setValue(null);
         jFTFSalarioMeta.setValue(null);
         jFTFValorHora.setValue(null);
-        util.posicionaCursojFTFValor(jFTFQtdeSalarioMin);
+        util.posicionaCursorjFTFValor(jFTFQtdeSalarioMin);
     }//GEN-LAST:event_jFTFQtdeSalarioMinFocusGained
 
     private void jFTFValorHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorHoraFocusGained
         jFTFValorHora.setValue(null);
         jFTFSalarioMeta.setValue(null);
         jFTFQtdeSalarioMin.setValue(null);
-        util.posicionaCursojFTFValor(jFTFValorHora);
+        util.posicionaCursorjFTFValor(jFTFValorHora);
     }//GEN-LAST:event_jFTFValorHoraFocusGained
 
     private void jTValoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTValoresMouseClicked

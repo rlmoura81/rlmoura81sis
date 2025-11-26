@@ -35,13 +35,13 @@ public class ProjetoRepository implements IPadraoRepository{
         Projeto p = (Projeto) o;
         try{
             sql = "UPDATE projeto" +
-                  "   SET ds_projeto = ?," +
+                  "   SET ds_projeto = ?" +
                   " WHERE cd_projeto = ?" +
                   "   AND cd_usuario = ?";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
             ps.setString(1, p.getDs_projeto());
             ps.setInt(2, p.getCd_projeto());
-            ps.setInt(1, JPLogin.codloginuser);            
+            ps.setInt(3, JPLogin.codloginuser);            
             ps.execute();
             ps.close();
             JOptionPane.showMessageDialog(null, "Salvo.", "Projeto", JOptionPane.INFORMATION_MESSAGE);

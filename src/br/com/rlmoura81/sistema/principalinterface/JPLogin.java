@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class JPLogin extends javax.swing.JPanel {
     
     public static int codloginuser;
-    
+    public static String loginuser;    
     public static Connection con = ConexaoPersistencia.getConnection();
     
     JFrame jfrm = new JFrame();
@@ -23,7 +23,7 @@ public class JPLogin extends javax.swing.JPanel {
         initComponents();
         
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jfrm.setSize(300, 200);
+        jfrm.setSize(280, 180);
         jfrm.setLocationRelativeTo(null);
         jfrm.add(this);
         jfrm.setVisible(true);
@@ -44,9 +44,15 @@ public class JPLogin extends javax.swing.JPanel {
 
         jPCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLLogin.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLLogin.setText("Login:");
 
+        jTFLogin.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+
+        jLSenha.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLSenha.setText("Senha:");
+
+        jPFSenha.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPCamposLayout = new javax.swing.GroupLayout(jPCampos);
         jPCampos.setLayout(jPCamposLayout);
@@ -58,10 +64,10 @@ public class JPLogin extends javax.swing.JPanel {
                     .addComponent(jLLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPFSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(jTFLogin))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTFLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jPFSenha))
+                .addContainerGap())
         );
         jPCamposLayout.setVerticalGroup(
             jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,6 +85,7 @@ public class JPLogin extends javax.swing.JPanel {
 
         jPBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jBAcessar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jBAcessar.setText("Acessar");
         jBAcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

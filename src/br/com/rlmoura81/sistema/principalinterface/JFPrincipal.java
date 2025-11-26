@@ -25,7 +25,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.gerenciainterface = new GerenciarInterface(jDPPrincipal);
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        this.setTitle("Sistema rlmoura81" + " - " + "Usuário: ");
+        this.setTitle("Sistema rlmoura81" + " - " + "Usuário: "+ JPLogin.loginuser + " - " + JPLogin.codloginuser);
         nlsDateFormat();
     }
 
