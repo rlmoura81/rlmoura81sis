@@ -766,7 +766,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jTFHora.setText(Utilidade.formatoValor.format(modulo.getNm_hora()));
         jCBComplexidade.setSelectedIndex(modulo.getNm_complexidade());
         jTFHorasComplexidade.setText(Utilidade.formatoValor.format(modulo.getNm_horacomplexidade()));
-        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_descricao());
+        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_modulo());
         tabelaEtapa();
         jTPProjeto.setEnabledAt(2, true);
         jcTipoEtapa();
@@ -832,7 +832,7 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
         jCBStatusEtapa.getModel().setSelectedItem(etapa.getStatusetapa());
         jTFTituloEtapa.setText(etapa.getDs_etapa());
         jTADescricaoEtapa.setText(etapa.getDs_descricao());
-        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_descricao() + " Etapa: " + etapa.getDs_etapa());
+        jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_modulo() + " Etapa: " + etapa.getDs_etapa());
     }//GEN-LAST:event_jTEtapaMouseClicked
 
     private void jCBComplexidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBComplexidadeActionPerformed
@@ -849,28 +849,35 @@ public class JIFProjeto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTFHoraFocusLost
 
     private void jPProjetoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPProjetoComponentShown
-        System.out.println("--Projeto");
         jTPProjeto.setEnabledAt(1, false);
         jTPProjeto.setEnabledAt(2, false);
-        if(jTPProjeto.isEnabledAt(1)== false && jTPProjeto.isEnabledAt(2) == false){
+        if(projeto != null){
+            jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto());
+        }else{
+            jLProjetoSelecionado.setText("Projeto: ");
+        }
+        if(jTPProjeto.isEnabledAt(1) == false && jTPProjeto.isEnabledAt(2) == false){
             limpaCampoModulo();
-            System.out.println("Modulo e etapa false");
         }
     }//GEN-LAST:event_jPProjetoComponentShown
 
     private void jPModuloComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPModuloComponentShown
-        System.out.println("--Modulo");
         jTPProjeto.setEnabledAt(2, false);
-        if(jTPProjeto.isEnabledAt(0)== true && jTPProjeto.isEnabledAt(2) == false){
+        if(modulo != null){
+            jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_modulo());    
+        }else{
+            jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: ");
+        }        
+        if(jTPProjeto.isEnabledAt(0) == true && jTPProjeto.isEnabledAt(2) == false){
             limpaCampoEtapa();
-            System.out.println("Projeto true e etapa false");
         }
     }//GEN-LAST:event_jPModuloComponentShown
 
     private void jPEtapaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPEtapaComponentShown
-        System.out.println("--Etapa");
-        if(jTPProjeto.isEnabledAt(0)== true && jTPProjeto.isEnabledAt(1) == true){
-            System.out.println("Projeto true, modulo true e etapa true");
+        if(etapa != null){
+            jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_modulo() + " Etapa: " + etapa.getDs_etapa());    
+        }else{
+            jLProjetoSelecionado.setText("Projeto: " + projeto.getDs_projeto() + " Modulo: " + modulo.getDs_modulo() + " Etapa: ");
         }        
     }//GEN-LAST:event_jPEtapaComponentShown
 

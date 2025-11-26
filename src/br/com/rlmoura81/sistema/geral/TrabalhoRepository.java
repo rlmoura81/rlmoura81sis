@@ -147,9 +147,9 @@ public class TrabalhoRepository implements IPadraoRepository{
             sql = "SELECT nm_valor" +
                   "  FROM trabalho" +
                   " WHERE dt_trabalho = (SELECT MAX(dt_trabalho)" +
-                  "                       FROM trabalho)" +
-                  "                      WHERE cd_ususario = ?" + 
-                  "   AND cd_usuario =?";
+                  "                        FROM trabalho" +
+                  "                       WHERE cd_usuario = ?)" + 
+                  "   AND cd_usuario = ?";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
             ps.setInt(1, JPLogin.codloginuser);
             ps.setInt(2, JPLogin.codloginuser);
@@ -169,8 +169,10 @@ public class TrabalhoRepository implements IPadraoRepository{
         BigDecimal vlSalario = Utilidade.converter("0,00");
         try{
             sql = "SELECT MAX(nm_valor)" +
-                  "  FROM trabalho";
+                  "  FROM trabalho" + 
+                  " WHERE cd_usuario = ?";
             PreparedStatement ps = JPLogin.con.prepareStatement(sql);
+            ps.setInt(1, JPLogin.codloginuser);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 vlSalario = rs.getBigDecimal("MAX(nm_valor)");   
