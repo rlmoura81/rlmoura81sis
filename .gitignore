@@ -18,3 +18,27 @@ src/br/com/rlmoura81/sistema/ConexaoPersistencia.java
 # Logs e temporários
 *.log
 *.tmp
+
+# ===== Java =====
+*.class
+*.jar
+*.war
+*.ear
+
+# ===== Build =====
+/build/
+/dist/
+/target/
+
+# ===== NetBeans =====
+nbproject/private/
+nbbuild/
+nbdist/
+
+# ===== IDEs =====
+.vscode/
+.idea/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db

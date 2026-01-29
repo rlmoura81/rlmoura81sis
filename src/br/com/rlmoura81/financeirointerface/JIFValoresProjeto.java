@@ -108,6 +108,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
         jLMensalidadeValorCalc = new javax.swing.JLabel();
         jFTFMensalidadeValorCalc = new javax.swing.JFormattedTextField();
         jFTFMensalidadePorcentCalc = new javax.swing.JFormattedTextField();
+        jLPercentualSalario = new javax.swing.JLabel();
         jPBotoes = new javax.swing.JPanel();
         jBCalcular = new javax.swing.JButton();
         jBSalvar = new javax.swing.JButton();
@@ -173,7 +174,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
                 .addComponent(jLHoraTotal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFHoraTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPProjetoLayout.setVerticalGroup(
             jPProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +281,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
                                 .addComponent(jFTFQtdeSalarioMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPValoresLayout.createSequentialGroup()
                                 .addComponent(jLQtdeSalarioMin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jFTFQtdeSalarioMin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPValoresLayout.createSequentialGroup()
                         .addComponent(jLCustoHora)
@@ -381,6 +382,8 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
             }
         });
 
+        jLPercentualSalario.setText("%");
+
         javax.swing.GroupLayout jPCamposLayout = new javax.swing.GroupLayout(jPCampos);
         jPCampos.setLayout(jPCamposLayout);
         jPCamposLayout.setHorizontalGroup(
@@ -392,6 +395,8 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
                 .addComponent(jFTFMensalidadeValorCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFTFMensalidadePorcentCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLPercentualSalario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCamposLayout.setVerticalGroup(
@@ -401,7 +406,8 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
                 .addGroup(jPCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLMensalidadeValorCalc)
                     .addComponent(jFTFMensalidadeValorCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFTFMensalidadePorcentCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFMensalidadePorcentCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLPercentualSalario))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -682,6 +688,7 @@ public class JIFValoresProjeto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLMensalidade;
     private javax.swing.JLabel jLMensalidadeValorCalc;
     private javax.swing.JLabel jLModulos;
+    private javax.swing.JLabel jLPercentualSalario;
     private javax.swing.JLabel jLProjeto;
     private javax.swing.JLabel jLQtdeSalarioMeta;
     private javax.swing.JLabel jLQtdeSalarioMin;
